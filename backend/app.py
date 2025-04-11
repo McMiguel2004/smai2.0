@@ -1,8 +1,10 @@
+import os
 from flask import Flask
 from flask_cors import CORS
 from api.auth.models import db
 from api.auth.routes import auth_bp
 from api.skins.routes import skins_bp
+from api.servers.routes import servers_bp
 from config import Config
 
 def create_app():
@@ -35,10 +37,14 @@ def create_app():
     # Registrar blueprints
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(skins_bp, url_prefix='/api/skins')
+    app.register_blueprint(servers_bp, url_prefix='/api/servers')
 
     # Crear tablas si no existen
     with app.app_context():
         db.create_all()
+
+    # Crear directorio para archivos subidos
+    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     
     return app
 

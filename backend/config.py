@@ -12,3 +12,6 @@ class Config:
     REFRESH_TOKEN_EXPIRE_DAYS = 30
     COOKIE_SECURE = os.getenv('COOKIE_SECURE', 'False').lower() == 'true'
     COOKIE_SAMESITE = os.getenv('COOKIE_SAMESITE', 'Lax')
+
+    UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+    ALLOWED_EXTENSIONS = {'jar'}
