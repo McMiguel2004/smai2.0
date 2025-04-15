@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -12,7 +12,6 @@ import {
   TextField,
   Typography,
   Grid,
-  Paper,
   Switch,
   FormControlLabel,
   Table,
@@ -21,16 +20,9 @@ import {
   TableRow,
   TableCell,
   IconButton,
+  CircularProgress,
 } from '@mui/material';
-import {
-  Add,
-  Cancel,
-  Close,
-  Delete,
-  Settings,
-  UploadFile,
-  Storage as ServerIcon,
-} from '@mui/icons-material';
+import { Add, Cancel, Settings } from '@mui/icons-material';
 
 const Servers = () => {
   const [showForm, setShowForm] = useState(false);
@@ -39,8 +31,8 @@ const Servers = () => {
     software: 'Java',
     version: '1.20.6',
     maxPlayers: 20,
-    difficulty: 'normal',
-    mode: 'survival',
+    difficulty: 'NORMAL',
+    mode: 'SURVIVAL',
     maxBuildHeight: 256,
     viewDistance: 10,
     spawnNpcs: true,
@@ -52,11 +44,58 @@ const Servers = () => {
     allowFlight: false,
   });
 
-  const toggleOpcionesAvanzadas = () => {
-    setShowAdvanced(prev => !prev);
+  const [showAdvanced, setShowAdvanced] = useState(false);
+  const [servers, setServers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const toggleOpcionesAvanzadas = () => setShowAdvanced(prev => !prev);
+
+  const fetchServers = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/servers/show_servers', {
+        method: 'GET',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo obtener la lista de servidores');
+      }
+
+      const data = await response.json();
+      setServers(data.servers || []);
+    } catch (error) {
+      console.error('Error al cargar servidores:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const [showAdvanced, setShowAdvanced] = useState(false);
+  useEffect(() => {
+    fetchServers();
+  }, []);
+
+  const handleSaveServer = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/servers/Create_Server', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Error al crear servidor');
+      }
+
+      alert('Servidor creado con éxito');
+      setShowForm(false);
+      fetchServers(); // Refresca la lista al crear
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
+  };
 
   return (
     <Container>
@@ -107,14 +146,7 @@ const Servers = () => {
                   setFormData({ ...formData, version: e.target.value })
                 }
               >
-                {[
-                  '1.20.6',
-                  '1.20.5',
-                  '1.20.4',
-                  '1.18.2',
-                  '1.12.2',
-                  '1.8.9'
-                ].map((v) => (
+                {['1.20.6', '1.20.5', '1.20.4', '1.18.2', '1.12.2', '1.8.9'].map((v) => (
                   <MenuItem key={v} value={v}>{v}</MenuItem>
                 ))}
               </Select>
@@ -127,7 +159,6 @@ const Servers = () => {
             {showAdvanced && (
               <Box mt={2}>
                 <Typography variant="h6">server.properties</Typography>
-
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6} md={3}>
                     <TextField
@@ -143,12 +174,10 @@ const Servers = () => {
                       <InputLabel>Dificultad</InputLabel>
                       <Select
                         value={formData.difficulty}
-                        onChange={(e) =>
-                          setFormData({ ...formData, difficulty: e.target.value })
-                        }
+                        onChange={(e) => setFormData({ ...formData, difficulty: e.target.value })}
                       >
-                        {['peaceful', 'easy', 'normal', 'hard'].map((d) => (
-                          <MenuItem key={d} value={d}>{d}</MenuItem>
+                        {['NORMAL', 'HARD', 'EASY', 'PEACEFUL'].map((d) => (
+                          <MenuItem key={d} value={d}>{d.toLowerCase()}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>
@@ -160,8 +189,8 @@ const Servers = () => {
                           setFormData({ ...formData, mode: e.target.value })
                         }
                       >
-                        {['survival', 'creative', 'adventure', 'spectator'].map((m) => (
-                          <MenuItem key={m} value={m}>{m}</MenuItem>
+                        {['SURVIVAL', 'CREATIVE', 'ADVENTURE', 'SPECTATOR'].map((m) => (
+                          <MenuItem key={m} value={m}>{m.toLowerCase()}</MenuItem>
                         ))}
                       </Select>
                     </FormControl>
@@ -217,7 +246,7 @@ const Servers = () => {
             )}
 
             <Box mt={3}>
-              <Button variant="contained" color="primary" onClick={() => {}}>
+              <Button variant="contained" color="primary" onClick={handleSaveServer}>
                 Guardar Servidor
               </Button>
               <Button
@@ -236,22 +265,41 @@ const Servers = () => {
 
       {/* Tabla de Servidores */}
       <Box mt={5}>
-        <Typography variant="h4">Lista de Servidores</Typography>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Nombre del Servidor</TableCell>
-              <TableCell>Software</TableCell>
-              <TableCell>Versión</TableCell>
-              <TableCell>Dirección IP</TableCell>
-              <TableCell>Estado</TableCell>
-              <TableCell>Acciones</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {/* Aquí irán los datos dinámicos de servidores */}
-          </TableBody>
-        </Table>
+        <Typography variant="h4" gutterBottom>Lista de Servidores</Typography>
+
+        {loading ? (
+          <Box display="flex" justifyContent="center" my={4}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Nombre del Servidor</TableCell>
+                <TableCell>Software</TableCell>
+                <TableCell>Versión</TableCell>
+                <TableCell>Dirección IP</TableCell>
+                <TableCell>Estado</TableCell>
+                <TableCell>Acciones</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+  {servers.map((server) => (
+    <TableRow key={server.id}>
+      <TableCell>{server.name}</TableCell>
+      <TableCell>{server.software}</TableCell>
+      <TableCell>{server.version}</TableCell>
+      <TableCell>{server.ip_address || 'N/A'}</TableCell>
+      <TableCell>{server.status || 'Desconocido'}</TableCell>
+      <TableCell>
+        <Button variant="outlined" size="small">Ver</Button>
+      </TableCell>
+    </TableRow>
+  ))}
+</TableBody>
+
+          </Table>
+        )}
       </Box>
     </Container>
   );

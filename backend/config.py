@@ -13,5 +13,10 @@ class Config:
     COOKIE_SECURE = os.getenv('COOKIE_SECURE', 'False').lower() == 'true'
     COOKIE_SAMESITE = os.getenv('COOKIE_SAMESITE', 'Lax')
 
+    # Configuración para JWT
+    JWT_HEADER_NAME = 'Authorization'  # Nombre del encabezado para el token JWT
+    JWT_TOKEN_LOCATION = ['headers']
+    JWT_COOKIE_CSRF_PROTECT = False
+
     UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
     ALLOWED_EXTENSIONS = {'jar'}

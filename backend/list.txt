@@ -1,0 +1,16 @@
+Nombre: adasdasd, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: dadas, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: asdasda, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: asdasda, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: asdasda, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: asdsadsad, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: asdsadsad, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: hola, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: Prueba, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: Prueba2, Software: Forge, Versión: 1.12.2, IP: N/A, Estado: stopped
+Nombre: ddddddddddddddddddd, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: ddddddddddddddddddd, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: ddddddddddddddddddd, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: mmm, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: Miguel, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped
+Nombre: asmam, Software: Java, Versión: 1.20.6, IP: N/A, Estado: stopped

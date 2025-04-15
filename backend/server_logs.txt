@@ -1,0 +1,1561 @@
+2025-04-15 17:07:39,249 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 17:07:39,249 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 17:07:39,250 - INFO -  * Restarting with stat
+2025-04-15 17:07:40,003 - WARNING -  * Debugger is active!
+2025-04-15 17:07:40,004 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:07:46,181 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'asdasdasd', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:07:46,183 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:07:46,206 - INFO - 127.0.0.1 - - [15/Apr/2025 17:07:46] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:07:46,207 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:07:46,207 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:07:46,208 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:07:46,218 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (26, 'NORMAL', ...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 87, in create_server
+    db.session.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (26, 'NORMAL', ...
+                                                             ^
+
+[SQL: INSERT INTO server_properties (server_id, difficulty, mode, max_players, max_build_height, view_distance, spawn_npcs, allow_nether, spawn_animals, spawn_monsters, pvp, enable_command_block, allow_flight) VALUES (%(server_id)s, %(difficulty)s, %(mode)s, %(max_players)s, %(max_build_height)s, %(view_distance)s, %(spawn_npcs)s, %(allow_nether)s, %(spawn_animals)s, %(spawn_monsters)s, %(pvp)s, %(enable_command_block)s, %(allow_flight)s) RETURNING server_properties.id]
+[parameters: {'server_id': 26, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'max_players': 20, 'max_build_height': 256, 'view_distance': 10, 'spawn_npcs': True, 'allow_nether': True, 'spawn_animals': True, 'spawn_monsters': True, 'pvp': True, 'enable_command_block': False, 'allow_flight': False}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-04-15 17:07:46,223 - INFO - 127.0.0.1 - - [15/Apr/2025 17:07:46] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:11:22,405 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:11:22,705 - INFO -  * Restarting with stat
+2025-04-15 17:11:23,410 - WARNING -  * Debugger is active!
+2025-04-15 17:11:23,411 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:11:25,477 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:11:25,679 - INFO -  * Restarting with stat
+2025-04-15 17:11:26,380 - WARNING -  * Debugger is active!
+2025-04-15 17:11:26,380 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:11:38,609 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:11:38,798 - INFO -  * Restarting with stat
+2025-04-15 17:11:39,415 - WARNING -  * Debugger is active!
+2025-04-15 17:11:39,416 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:12:03,915 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:12:04,096 - INFO -  * Restarting with stat
+2025-04-15 17:12:04,765 - WARNING -  * Debugger is active!
+2025-04-15 17:12:04,765 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:12:06,823 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:12:07,117 - INFO -  * Restarting with stat
+2025-04-15 17:12:07,829 - WARNING -  * Debugger is active!
+2025-04-15 17:12:07,830 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:12:18,011 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:12:18,222 - INFO -  * Restarting with stat
+2025-04-15 17:12:18,978 - WARNING -  * Debugger is active!
+2025-04-15 17:12:18,979 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:12:24,067 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:12:24,327 - INFO -  * Restarting with stat
+2025-04-15 17:12:25,212 - WARNING -  * Debugger is active!
+2025-04-15 17:12:25,213 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:12:28,749 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'asdasdasd', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:12:28,754 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:12:28,782 - INFO - 127.0.0.1 - - [15/Apr/2025 17:12:28] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:12:28,783 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:12:28,785 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:12:28,785 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:12:28,796 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (27, 'NORMAL', ...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 87, in create_server
+    db.session.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (27, 'NORMAL', ...
+                                                             ^
+
+[SQL: INSERT INTO server_properties (server_id, difficulty, mode, max_players, max_build_height, view_distance, spawn_npcs, allow_nether, spawn_animals, spawn_monsters, pvp, enable_command_block, allow_flight) VALUES (%(server_id)s, %(difficulty)s, %(mode)s, %(max_players)s, %(max_build_height)s, %(view_distance)s, %(spawn_npcs)s, %(allow_nether)s, %(spawn_animals)s, %(spawn_monsters)s, %(pvp)s, %(enable_command_block)s, %(allow_flight)s) RETURNING server_properties.id]
+[parameters: {'server_id': 27, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'max_players': 20, 'max_build_height': 256, 'view_distance': 10, 'spawn_npcs': True, 'allow_nether': True, 'spawn_animals': True, 'spawn_monsters': True, 'pvp': True, 'enable_command_block': False, 'allow_flight': False}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-04-15 17:12:28,802 - INFO - 127.0.0.1 - - [15/Apr/2025 17:12:28] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:13:27,791 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'Prueba', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:13:27,793 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:13:27,799 - INFO - 127.0.0.1 - - [15/Apr/2025 17:13:27] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:13:27,799 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:13:27,801 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:13:27,801 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:13:27,805 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (28, 'NORMAL', ...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 87, in create_server
+    db.session.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (28, 'NORMAL', ...
+                                                             ^
+
+[SQL: INSERT INTO server_properties (server_id, difficulty, mode, max_players, max_build_height, view_distance, spawn_npcs, allow_nether, spawn_animals, spawn_monsters, pvp, enable_command_block, allow_flight) VALUES (%(server_id)s, %(difficulty)s, %(mode)s, %(max_players)s, %(max_build_height)s, %(view_distance)s, %(spawn_npcs)s, %(allow_nether)s, %(spawn_animals)s, %(spawn_monsters)s, %(pvp)s, %(enable_command_block)s, %(allow_flight)s) RETURNING server_properties.id]
+[parameters: {'server_id': 28, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'max_players': 20, 'max_build_height': 256, 'view_distance': 10, 'spawn_npcs': True, 'allow_nether': True, 'spawn_animals': True, 'spawn_monsters': True, 'pvp': True, 'enable_command_block': False, 'allow_flight': False}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-04-15 17:13:27,806 - INFO - 127.0.0.1 - - [15/Apr/2025 17:13:27] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:15:19,193 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'Prueba', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:15:19,195 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:15:19,202 - INFO - 127.0.0.1 - - [15/Apr/2025 17:15:19] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:15:19,203 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:15:19,203 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:15:19,203 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:15:19,208 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (29, 'NORMAL', ...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 87, in create_server
+    db.session.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (29, 'NORMAL', ...
+                                                             ^
+
+[SQL: INSERT INTO server_properties (server_id, difficulty, mode, max_players, max_build_height, view_distance, spawn_npcs, allow_nether, spawn_animals, spawn_monsters, pvp, enable_command_block, allow_flight) VALUES (%(server_id)s, %(difficulty)s, %(mode)s, %(max_players)s, %(max_build_height)s, %(view_distance)s, %(spawn_npcs)s, %(allow_nether)s, %(spawn_animals)s, %(spawn_monsters)s, %(pvp)s, %(enable_command_block)s, %(allow_flight)s) RETURNING server_properties.id]
+[parameters: {'server_id': 29, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'max_players': 20, 'max_build_height': 256, 'view_distance': 10, 'spawn_npcs': True, 'allow_nether': True, 'spawn_animals': True, 'spawn_monsters': True, 'pvp': True, 'enable_command_block': False, 'allow_flight': False}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-04-15 17:15:19,209 - INFO - 127.0.0.1 - - [15/Apr/2025 17:15:19] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:15:53,357 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:15:53,565 - INFO -  * Restarting with stat
+2025-04-15 17:15:54,304 - WARNING -  * Debugger is active!
+2025-04-15 17:15:54,305 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:16:00,419 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:16:00,667 - INFO -  * Restarting with stat
+2025-04-15 17:16:01,325 - WARNING -  * Debugger is active!
+2025-04-15 17:16:01,333 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:16:04,444 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:16:04,666 - INFO -  * Restarting with stat
+2025-04-15 17:16:05,399 - WARNING -  * Debugger is active!
+2025-04-15 17:16:05,401 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:16:15,116 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 17:16:15,116 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 17:16:15,117 - INFO -  * Restarting with stat
+2025-04-15 17:16:15,777 - WARNING -  * Debugger is active!
+2025-04-15 17:16:15,778 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:16:21,671 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'Prueba', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:16:21,675 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:16:21,709 - INFO - 127.0.0.1 - - [15/Apr/2025 17:16:21] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:16:21,710 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:16:21,712 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:16:21,717 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:16:21,742 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (30, 'NORMAL', ...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 87, in create_server
+    db.session.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (30, 'NORMAL', ...
+                                                             ^
+
+[SQL: INSERT INTO server_properties (server_id, difficulty, mode, max_players, max_build_height, view_distance, spawn_npcs, allow_nether, spawn_animals, spawn_monsters, pvp, enable_command_block, allow_flight) VALUES (%(server_id)s, %(difficulty)s, %(mode)s, %(max_players)s, %(max_build_height)s, %(view_distance)s, %(spawn_npcs)s, %(allow_nether)s, %(spawn_animals)s, %(spawn_monsters)s, %(pvp)s, %(enable_command_block)s, %(allow_flight)s) RETURNING server_properties.id]
+[parameters: {'server_id': 30, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'max_players': 20, 'max_build_height': 256, 'view_distance': 10, 'spawn_npcs': True, 'allow_nether': True, 'spawn_animals': True, 'spawn_monsters': True, 'pvp': True, 'enable_command_block': False, 'allow_flight': False}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-04-15 17:16:21,751 - INFO - 127.0.0.1 - - [15/Apr/2025 17:16:21] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:16:52,509 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:16:52,742 - INFO -  * Restarting with stat
+2025-04-15 17:17:29,572 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 17:17:29,572 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 17:17:29,573 - INFO -  * Restarting with stat
+2025-04-15 17:17:30,220 - WARNING -  * Debugger is active!
+2025-04-15 17:17:30,220 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:17:44,008 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'Prueba', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:17:44,012 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:17:44,052 - INFO - 127.0.0.1 - - [15/Apr/2025 17:17:44] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:17:44,053 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:17:44,054 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:17:44,054 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:17:44,064 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (31, 'NORMAL', ...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 87, in create_server
+    db.session.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (31, 'NORMAL', ...
+                                                             ^
+
+[SQL: INSERT INTO server_properties (server_id, difficulty, mode, max_players, max_build_height, view_distance, spawn_npcs, allow_nether, spawn_animals, spawn_monsters, pvp, enable_command_block, allow_flight) VALUES (%(server_id)s, %(difficulty)s, %(mode)s, %(max_players)s, %(max_build_height)s, %(view_distance)s, %(spawn_npcs)s, %(allow_nether)s, %(spawn_animals)s, %(spawn_monsters)s, %(pvp)s, %(enable_command_block)s, %(allow_flight)s) RETURNING server_properties.id]
+[parameters: {'server_id': 31, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'max_players': 20, 'max_build_height': 256, 'view_distance': 10, 'spawn_npcs': True, 'allow_nether': True, 'spawn_animals': True, 'spawn_monsters': True, 'pvp': True, 'enable_command_block': False, 'allow_flight': False}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-04-15 17:17:44,070 - INFO - 127.0.0.1 - - [15/Apr/2025 17:17:44] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:18:11,048 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:18:11,353 - INFO -  * Restarting with stat
+2025-04-15 17:18:12,098 - WARNING -  * Debugger is active!
+2025-04-15 17:18:12,099 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:18:24,316 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:18:24,568 - INFO -  * Restarting with stat
+2025-04-15 17:18:25,356 - WARNING -  * Debugger is active!
+2025-04-15 17:18:25,356 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:19:00,368 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 17:19:00,368 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 17:19:00,369 - INFO -  * Restarting with stat
+2025-04-15 17:19:00,976 - WARNING -  * Debugger is active!
+2025-04-15 17:19:00,977 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:19:08,281 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'Prueba', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:19:08,284 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:19:08,308 - INFO - 127.0.0.1 - - [15/Apr/2025 17:19:08] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:19:08,308 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:19:08,309 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:19:08,309 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:19:08,319 - INFO - Servidor creado correctamente para el usuario con id 21
+2025-04-15 17:19:08,329 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1687, in _object_value_for_elem
+    return self._object_lookup[elem]  # type: ignore[return-value]
+KeyError: 'normal'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 96, in create_server
+    'server': new_server.to_dict()
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/models.py", line 47, in to_dict
+    'properties': self.properties.to_dict() if self.properties else None
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 566, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1086, in get
+    value = self._fire_loader_callables(state, key, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1121, in _fire_loader_callables
+    return self.callable_(state, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 978, in _load_for_state
+    return self._emit_lazyload(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 1145, in _emit_lazyload
+    result = result.unique().scalars().all()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1767, in all
+    return self._allrows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 548, in _allrows
+    rows = self._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1674, in _fetchall_impl
+    return self._real_result._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 2268, in _fetchall_impl
+    return list(self.iterator)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 219, in chunks
+    fetch = cursor._raw_all_rows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in _raw_all_rows
+    return [make_row(row) for row in rows]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in <listcomp>
+    return [make_row(row) for row in rows]
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 22, in sqlalchemy.cyextension.resultproxy.BaseRow.__init__
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 79, in sqlalchemy.cyextension.resultproxy._apply_processors
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1807, in process
+    value = self._object_value_for_elem(value)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1689, in _object_value_for_elem
+    raise LookupError(
+LookupError: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:19:08,333 - INFO - 127.0.0.1 - - [15/Apr/2025 17:19:08] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:20:10,952 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'Prueba2', 'software': 'Forge', 'version': '1.12.2', 'maxPlayers': 18, 'difficulty': 'hard', 'mode': 'CREATIVE', 'maxBuildHeight': 100, 'viewDistance': 100, 'spawnNpcs': False, 'allowNether': False, 'spawnAnimals': False, 'spawnMonsters': False, 'pvp': False, 'enableCommandBlock': True, 'allowFlight': True}
+2025-04-15 17:20:10,954 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:20:10,962 - INFO - 127.0.0.1 - - [15/Apr/2025 17:20:10] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:20:10,965 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:20:10,966 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:20:10,966 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:20:10,973 - INFO - Servidor creado correctamente para el usuario con id 21
+2025-04-15 17:20:10,976 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1687, in _object_value_for_elem
+    return self._object_lookup[elem]  # type: ignore[return-value]
+KeyError: 'hard'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 96, in create_server
+    'server': new_server.to_dict()
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/models.py", line 47, in to_dict
+    'properties': self.properties.to_dict() if self.properties else None
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 566, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1086, in get
+    value = self._fire_loader_callables(state, key, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1121, in _fire_loader_callables
+    return self.callable_(state, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 978, in _load_for_state
+    return self._emit_lazyload(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 1145, in _emit_lazyload
+    result = result.unique().scalars().all()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1767, in all
+    return self._allrows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 548, in _allrows
+    rows = self._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1674, in _fetchall_impl
+    return self._real_result._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 2268, in _fetchall_impl
+    return list(self.iterator)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 219, in chunks
+    fetch = cursor._raw_all_rows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in _raw_all_rows
+    return [make_row(row) for row in rows]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in <listcomp>
+    return [make_row(row) for row in rows]
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 22, in sqlalchemy.cyextension.resultproxy.BaseRow.__init__
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 79, in sqlalchemy.cyextension.resultproxy._apply_processors
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1807, in process
+    value = self._object_value_for_elem(value)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1689, in _object_value_for_elem
+    raise LookupError(
+LookupError: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:20:10,978 - INFO - 127.0.0.1 - - [15/Apr/2025 17:20:10] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:25:28,850 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:25:29,068 - INFO -  * Restarting with stat
+2025-04-15 17:25:29,684 - WARNING -  * Debugger is active!
+2025-04-15 17:25:29,685 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:25:43,970 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:25:44,289 - INFO -  * Restarting with stat
+2025-04-15 17:25:45,236 - WARNING -  * Debugger is active!
+2025-04-15 17:25:45,237 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:25:46,271 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:25:46,508 - INFO -  * Restarting with stat
+2025-04-15 17:25:47,159 - WARNING -  * Debugger is active!
+2025-04-15 17:25:47,160 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:26:22,694 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'MAnuekl', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'normal', 'mode': 'survival', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:26:22,698 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:26:22,727 - INFO - 127.0.0.1 - - [15/Apr/2025 17:26:22] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:26:22,728 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:26:22,729 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:26:22,729 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:26:22,744 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidTextRepresentation: invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (34, 'NORMAL', ...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 87, in create_server
+    db.session.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/scoping.py", line 599, in commit
+    return self._proxied.commit()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 2032, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1313, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/state_changes.py", line 139, in _go
+    ret_value = fn(self, *arg, **kw)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 1288, in _prepare_impl
+    self.session.flush()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4353, in flush
+    self._flush(objects)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/util/langhelpers.py", line 146, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/session.py", line 4449, in _flush
+    flush_context.execute()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 466, in execute
+    rec.execute(self)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/unitofwork.py", line 642, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 93, in save_obj
+    _emit_insert_statements(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/persistence.py", line 1233, in _emit_insert_statements
+    result = connection.execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/elements.py", line 523, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1638, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1843, in _execute_context
+    return self._exec_single_context(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1983, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2352, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1964, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 945, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.DataError: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum difficulty_enum: "NORMAL"
+LINE 1: ..., enable_command_block, allow_flight) VALUES (34, 'NORMAL', ...
+                                                             ^
+
+[SQL: INSERT INTO server_properties (server_id, difficulty, mode, max_players, max_build_height, view_distance, spawn_npcs, allow_nether, spawn_animals, spawn_monsters, pvp, enable_command_block, allow_flight) VALUES (%(server_id)s, %(difficulty)s, %(mode)s, %(max_players)s, %(max_build_height)s, %(view_distance)s, %(spawn_npcs)s, %(allow_nether)s, %(spawn_animals)s, %(spawn_monsters)s, %(pvp)s, %(enable_command_block)s, %(allow_flight)s) RETURNING server_properties.id]
+[parameters: {'server_id': 34, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'max_players': 20, 'max_build_height': 256, 'view_distance': 10, 'spawn_npcs': True, 'allow_nether': True, 'spawn_animals': True, 'spawn_monsters': True, 'pvp': True, 'enable_command_block': False, 'allow_flight': False}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+2025-04-15 17:26:22,750 - INFO - 127.0.0.1 - - [15/Apr/2025 17:26:22] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:27:01,552 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:27:01,794 - INFO -  * Restarting with stat
+2025-04-15 17:27:02,869 - WARNING -  * Debugger is active!
+2025-04-15 17:27:02,873 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:27:04,968 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:27:05,236 - INFO -  * Restarting with stat
+2025-04-15 17:27:06,030 - WARNING -  * Debugger is active!
+2025-04-15 17:27:06,030 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:29:45,038 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:29:45,303 - INFO -  * Restarting with stat
+2025-04-15 17:29:46,056 - WARNING -  * Debugger is active!
+2025-04-15 17:29:46,057 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:30:00,086 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'ddddddddddddddddddd', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:30:00,090 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:30:00,124 - INFO - 127.0.0.1 - - [15/Apr/2025 17:30:00] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:30:00,125 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:30:00,125 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:30:00,125 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:30:00,139 - INFO - Servidor creado correctamente para el usuario con id 21
+2025-04-15 17:30:00,148 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1687, in _object_value_for_elem
+    return self._object_lookup[elem]  # type: ignore[return-value]
+KeyError: 'normal'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 96, in create_server
+    'server': new_server.to_dict()
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/models.py", line 47, in to_dict
+    'properties': self.properties.to_dict() if self.properties else None
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 566, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1086, in get
+    value = self._fire_loader_callables(state, key, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1121, in _fire_loader_callables
+    return self.callable_(state, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 978, in _load_for_state
+    return self._emit_lazyload(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 1145, in _emit_lazyload
+    result = result.unique().scalars().all()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1767, in all
+    return self._allrows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 548, in _allrows
+    rows = self._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1674, in _fetchall_impl
+    return self._real_result._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 2268, in _fetchall_impl
+    return list(self.iterator)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 219, in chunks
+    fetch = cursor._raw_all_rows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in _raw_all_rows
+    return [make_row(row) for row in rows]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in <listcomp>
+    return [make_row(row) for row in rows]
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 22, in sqlalchemy.cyextension.resultproxy.BaseRow.__init__
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 79, in sqlalchemy.cyextension.resultproxy._apply_processors
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1807, in process
+    value = self._object_value_for_elem(value)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1689, in _object_value_for_elem
+    raise LookupError(
+LookupError: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:30:00,152 - INFO - 127.0.0.1 - - [15/Apr/2025 17:30:00] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:30:05,422 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:30:05,660 - INFO -  * Restarting with stat
+2025-04-15 17:30:06,262 - WARNING -  * Debugger is active!
+2025-04-15 17:30:06,263 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:30:18,483 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:30:18,732 - INFO -  * Restarting with stat
+2025-04-15 17:31:43,059 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 17:31:43,059 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 17:31:43,060 - INFO -  * Restarting with stat
+2025-04-15 17:31:43,707 - WARNING -  * Debugger is active!
+2025-04-15 17:31:43,708 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:31:51,435 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'ddddddddddddddddddd', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:31:51,438 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:31:51,475 - INFO - 127.0.0.1 - - [15/Apr/2025 17:31:51] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:31:51,476 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:31:51,476 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:31:51,477 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:31:51,490 - INFO - Servidor creado correctamente para el usuario con id 21
+2025-04-15 17:31:51,500 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1687, in _object_value_for_elem
+    return self._object_lookup[elem]  # type: ignore[return-value]
+KeyError: 'normal'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 96, in create_server
+    'server': new_server.to_dict()
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/models.py", line 47, in to_dict
+    'properties': self.properties.to_dict() if self.properties else None
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 566, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1086, in get
+    value = self._fire_loader_callables(state, key, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1121, in _fire_loader_callables
+    return self.callable_(state, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 978, in _load_for_state
+    return self._emit_lazyload(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 1145, in _emit_lazyload
+    result = result.unique().scalars().all()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1767, in all
+    return self._allrows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 548, in _allrows
+    rows = self._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1674, in _fetchall_impl
+    return self._real_result._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 2268, in _fetchall_impl
+    return list(self.iterator)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 219, in chunks
+    fetch = cursor._raw_all_rows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in _raw_all_rows
+    return [make_row(row) for row in rows]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in <listcomp>
+    return [make_row(row) for row in rows]
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 22, in sqlalchemy.cyextension.resultproxy.BaseRow.__init__
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 79, in sqlalchemy.cyextension.resultproxy._apply_processors
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1807, in process
+    value = self._object_value_for_elem(value)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1689, in _object_value_for_elem
+    raise LookupError(
+LookupError: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:31:51,506 - INFO - 127.0.0.1 - - [15/Apr/2025 17:31:51] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:32:32,661 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/models.py', reloading
+2025-04-15 17:32:32,882 - INFO -  * Restarting with stat
+2025-04-15 17:32:42,076 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 17:32:42,077 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 17:32:42,078 - INFO -  * Restarting with stat
+2025-04-15 17:32:42,684 - WARNING -  * Debugger is active!
+2025-04-15 17:32:42,685 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:32:45,061 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'ddddddddddddddddddd', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:32:45,064 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:32:45,086 - INFO - 127.0.0.1 - - [15/Apr/2025 17:32:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:32:45,087 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:32:45,087 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:32:45,088 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:32:45,101 - INFO - Servidor creado correctamente para el usuario con id 21
+2025-04-15 17:32:45,108 - ERROR - Error al crear servidor
+Traceback (most recent call last):
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1687, in _object_value_for_elem
+    return self._object_lookup[elem]  # type: ignore[return-value]
+KeyError: 'normal'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py", line 96, in create_server
+    'server': new_server.to_dict()
+  File "/home/usuario/Documentos/smai2.0/backend/api/servers/models.py", line 47, in to_dict
+    'properties': self.properties.to_dict() if self.properties else None
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 566, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1086, in get
+    value = self._fire_loader_callables(state, key, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/attributes.py", line 1121, in _fire_loader_callables
+    return self.callable_(state, passive)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 978, in _load_for_state
+    return self._emit_lazyload(
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/strategies.py", line 1145, in _emit_lazyload
+    result = result.unique().scalars().all()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1767, in all
+    return self._allrows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 548, in _allrows
+    rows = self._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 1674, in _fetchall_impl
+    return self._real_result._fetchall_impl()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 2268, in _fetchall_impl
+    return list(self.iterator)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/orm/loading.py", line 219, in chunks
+    fetch = cursor._raw_all_rows()
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in _raw_all_rows
+    return [make_row(row) for row in rows]
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/engine/result.py", line 541, in <listcomp>
+    return [make_row(row) for row in rows]
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 22, in sqlalchemy.cyextension.resultproxy.BaseRow.__init__
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 79, in sqlalchemy.cyextension.resultproxy._apply_processors
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1807, in process
+    value = self._object_value_for_elem(value)
+  File "/home/usuario/.local/lib/python3.10/site-packages/sqlalchemy/sql/sqltypes.py", line 1689, in _object_value_for_elem
+    raise LookupError(
+LookupError: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:32:45,116 - INFO - 127.0.0.1 - - [15/Apr/2025 17:32:45] "[35m[1mPOST /api/servers HTTP/1.1[0m" 500 -
+2025-04-15 17:35:09,620 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:35:09,872 - INFO -  * Restarting with stat
+2025-04-15 17:35:10,683 - WARNING -  * Debugger is active!
+2025-04-15 17:35:10,687 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:35:14,780 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:35:15,080 - INFO -  * Restarting with stat
+2025-04-15 17:35:16,118 - WARNING -  * Debugger is active!
+2025-04-15 17:35:16,119 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:35:21,151 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 17:35:21,151 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 17:35:21,154 - INFO -  * Restarting with stat
+2025-04-15 17:35:21,858 - WARNING -  * Debugger is active!
+2025-04-15 17:35:21,858 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:35:27,881 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'mmm', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:35:27,890 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:35:27,916 - INFO - 127.0.0.1 - - [15/Apr/2025 17:35:27] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:35:27,917 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:35:27,920 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:35:27,921 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:35:27,934 - INFO - Servidor creado correctamente para el usuario con id 21
+2025-04-15 17:35:27,945 - WARNING - Servidor creado pero error al formatear los datos: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:35:27,946 - INFO - 127.0.0.1 - - [15/Apr/2025 17:35:27] "[35m[1mPOST /api/servers HTTP/1.1[0m" 201 -
+2025-04-15 17:41:47,330 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:41:47,676 - INFO -  * Restarting with stat
+2025-04-15 17:41:48,476 - WARNING -  * Debugger is active!
+2025-04-15 17:41:48,478 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:42:05,456 - INFO - 127.0.0.1 - - [15/Apr/2025 17:42:05] "[31m[1mGET /api/servers/Create_Server HTTP/1.1[0m" 405 -
+2025-04-15 17:42:05,834 - INFO - 127.0.0.1 - - [15/Apr/2025 17:42:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-15 17:42:28,065 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 17:42:28,068 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 17:42:28,069 - INFO -  * Restarting with stat
+2025-04-15 17:42:28,921 - WARNING -  * Debugger is active!
+2025-04-15 17:42:28,925 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:42:34,084 - INFO - 127.0.0.1 - - [15/Apr/2025 17:42:34] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:42:34,185 - INFO - 127.0.0.1 - - [15/Apr/2025 17:42:34] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:42:34,190 - INFO - 127.0.0.1 - - [15/Apr/2025 17:42:34] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:42:34,200 - INFO - 127.0.0.1 - - [15/Apr/2025 17:42:34] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:42:48,344 - INFO - 127.0.0.1 - - [15/Apr/2025 17:42:48] "OPTIONS /api/servers/Create_Server HTTP/1.1" 200 -
+2025-04-15 17:42:48,347 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'Miguel', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 17:42:48,350 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:42:48,355 - INFO - 127.0.0.1 - - [15/Apr/2025 17:42:48] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:42:48,356 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:42:48,357 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:42:48,357 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:42:48,371 - INFO - Servidor creado correctamente para el usuario con id 21
+2025-04-15 17:42:48,381 - WARNING - Servidor creado pero error al formatear los datos: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:42:48,382 - INFO - 127.0.0.1 - - [15/Apr/2025 17:42:48] "[35m[1mPOST /api/servers/Create_Server HTTP/1.1[0m" 201 -
+2025-04-15 17:55:33,751 - INFO - 127.0.0.1 - - [15/Apr/2025 17:55:33] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:55:33,769 - INFO - 127.0.0.1 - - [15/Apr/2025 17:55:33] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:55:33,783 - INFO - 127.0.0.1 - - [15/Apr/2025 17:55:33] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:55:33,793 - INFO - 127.0.0.1 - - [15/Apr/2025 17:55:33] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:55:45,128 - INFO - 127.0.0.1 - - [15/Apr/2025 17:55:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:55:45,207 - INFO - 127.0.0.1 - - [15/Apr/2025 17:55:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:55:45,292 - INFO - 127.0.0.1 - - [15/Apr/2025 17:55:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:55:45,327 - INFO - 127.0.0.1 - - [15/Apr/2025 17:55:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:56:20,132 - INFO - 127.0.0.1 - - [15/Apr/2025 17:56:20] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:56:20,175 - INFO - 127.0.0.1 - - [15/Apr/2025 17:56:20] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:56:20,204 - INFO - 127.0.0.1 - - [15/Apr/2025 17:56:20] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:56:20,205 - INFO - 127.0.0.1 - - [15/Apr/2025 17:56:20] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:56:22,290 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:56:22,495 - INFO -  * Restarting with stat
+2025-04-15 17:56:23,141 - WARNING -  * Debugger is active!
+2025-04-15 17:56:23,141 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:56:30,277 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 17:56:30,506 - INFO -  * Restarting with stat
+2025-04-15 17:56:36,222 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 17:56:36,223 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 17:56:36,224 - INFO -  * Restarting with stat
+2025-04-15 17:56:36,883 - WARNING -  * Debugger is active!
+2025-04-15 17:56:36,884 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 17:56:59,861 - INFO - 127.0.0.1 - - [15/Apr/2025 17:56:59] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:56:59,865 - INFO - 127.0.0.1 - - [15/Apr/2025 17:56:59] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:56:59,903 - INFO - 127.0.0.1 - - [15/Apr/2025 17:56:59] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:56:59,910 - INFO - 127.0.0.1 - - [15/Apr/2025 17:56:59] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:31,279 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:31] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:31,296 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:31] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:31,325 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:31] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:31,327 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:31] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:36,276 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:58:36,286 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:36] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:36,287 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:58:36,288 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:58:36,288 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:58:36,317 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,319 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,321 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,322 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,323 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,324 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,325 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,326 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,327 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,328 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,329 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,331 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,332 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,333 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,334 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:36,337 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:36] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 17:58:45,009 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:45,028 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:45,047 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:45,106 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:45,268 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:58:45,272 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 17:58:45,287 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:45,289 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:58:45,290 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:58:45,290 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:58:45,293 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 17:58:45,294 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 17:58:45,296 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 17:58:45,296 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 17:58:45,304 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,305 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,307 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,308 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,309 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,310 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,311 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,313 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,313 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,318 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,319 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,320 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,321 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,322 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,323 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,326 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,326 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,328 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,329 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,330 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,331 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,331 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,333 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,333 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,334 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,336 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,336 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,338 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:45] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 17:58:45,339 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,340 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,341 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 17:58:45,343 - INFO - 127.0.0.1 - - [15/Apr/2025 17:58:45] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:01:42,585 - INFO - 127.0.0.1 - - [15/Apr/2025 18:01:42] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:01:42,898 - INFO - 127.0.0.1 - - [15/Apr/2025 18:01:42] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:01:42,931 - INFO - 127.0.0.1 - - [15/Apr/2025 18:01:42] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:01:42,952 - INFO - 127.0.0.1 - - [15/Apr/2025 18:01:42] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:01:42,992 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:01:42,993 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:01:43,014 - INFO - 127.0.0.1 - - [15/Apr/2025 18:01:43] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:01:43,015 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:01:43,015 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:01:43,016 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:01:43,021 - INFO - 127.0.0.1 - - [15/Apr/2025 18:01:43] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:01:43,021 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:01:43,022 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:01:43,023 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:01:43,027 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,030 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,032 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,034 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,035 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,036 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,039 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,040 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,042 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,043 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,044 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,047 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,050 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,051 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,053 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,054 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,055 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,059 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,060 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,062 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,063 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,065 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,066 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,068 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,069 - INFO - 127.0.0.1 - - [15/Apr/2025 18:01:43] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:01:43,069 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,072 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,074 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,075 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,081 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,082 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:01:43,084 - INFO - 127.0.0.1 - - [15/Apr/2025 18:01:43] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:05:05,345 - INFO - 127.0.0.1 - - [15/Apr/2025 18:05:05] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:05:05,525 - INFO - 127.0.0.1 - - [15/Apr/2025 18:05:05] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:05:05,546 - INFO - 127.0.0.1 - - [15/Apr/2025 18:05:05] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:05:05,547 - INFO - 127.0.0.1 - - [15/Apr/2025 18:05:05] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:05:06,077 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:05:06,089 - INFO - 127.0.0.1 - - [15/Apr/2025 18:05:06] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:05:06,089 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:05:06,093 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:05:06,093 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:05:06,102 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,104 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,106 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,107 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,108 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,109 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,111 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,112 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,115 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,116 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,117 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,118 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,120 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,121 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,122 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,124 - INFO - 127.0.0.1 - - [15/Apr/2025 18:05:06] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:05:06,158 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:05:06,166 - INFO - 127.0.0.1 - - [15/Apr/2025 18:05:06] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:05:06,167 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:05:06,167 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:05:06,167 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:05:06,172 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,173 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,174 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,175 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,176 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,177 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,179 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,180 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,181 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,182 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,183 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,185 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,186 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,187 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,188 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:05:06,191 - INFO - 127.0.0.1 - - [15/Apr/2025 18:05:06] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:07:23,340 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 18:07:23,728 - INFO -  * Restarting with stat
+2025-04-15 18:07:24,522 - WARNING -  * Debugger is active!
+2025-04-15 18:07:24,523 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 18:07:35,706 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:35] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:35,713 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:35] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:35,721 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:35] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:35,749 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:35] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:36,656 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:07:36,669 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:36] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:36,669 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:07:36,670 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:07:36,671 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:07:36,686 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,689 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,690 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,692 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,694 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,696 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,697 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,701 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,702 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,703 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,704 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,705 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,706 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,707 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,709 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,710 - DEBUG - Se escribió list.txt con 15 servidores
+2025-04-15 18:07:36,711 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:36] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:07:36,734 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:07:36,741 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:36] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:36,742 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:07:36,743 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:07:36,743 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:07:36,749 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,751 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,752 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,754 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,761 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,775 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,778 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,779 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,785 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,787 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,789 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,793 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,794 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,795 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,797 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:36,797 - DEBUG - Se escribió list.txt con 15 servidores
+2025-04-15 18:07:36,801 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:36] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:07:39,519 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-15 18:07:39,519 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-15 18:07:39,520 - INFO -  * Restarting with stat
+2025-04-15 18:07:40,224 - WARNING -  * Debugger is active!
+2025-04-15 18:07:40,226 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 18:07:58,894 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:58] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:58,913 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:58] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:58,927 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:58] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:58,939 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:58] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:59,257 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:07:59,270 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:59] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:59,275 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:07:59,276 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:07:59,276 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:07:59,287 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,294 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,296 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,297 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,298 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,299 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,300 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,301 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,302 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,304 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,315 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,317 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,320 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,329 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,330 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,330 - DEBUG - Se escribió list.txt con 15 servidores
+2025-04-15 18:07:59,333 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:59] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:07:59,523 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:07:59,531 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:59] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:07:59,531 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:07:59,532 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:07:59,532 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:07:59,540 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,542 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,543 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,545 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,548 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,549 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,550 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,551 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,553 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,556 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,558 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,566 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,567 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,568 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,570 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:07:59,571 - DEBUG - Se escribió list.txt con 15 servidores
+2025-04-15 18:07:59,572 - INFO - 127.0.0.1 - - [15/Apr/2025 18:07:59] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:08:37,498 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'asmam', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-15 18:08:37,499 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:08:37,510 - INFO - 127.0.0.1 - - [15/Apr/2025 18:08:37] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:08:37,511 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:08:37,511 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:08:37,512 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:08:37,532 - INFO - Servidor creado correctamente para el usuario con id 21
+2025-04-15 18:08:37,537 - WARNING - Servidor creado pero error al formatear los datos: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:37,538 - INFO - 127.0.0.1 - - [15/Apr/2025 18:08:37] "[35m[1mPOST /api/servers/Create_Server HTTP/1.1[0m" 201 -
+2025-04-15 18:08:39,228 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:08:39,240 - INFO - 127.0.0.1 - - [15/Apr/2025 18:08:39] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:08:39,241 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:08:39,242 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:08:39,242 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:08:39,256 - WARNING - Error al convertir servidor con id 14 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,258 - WARNING - Error al convertir servidor con id 15 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,260 - WARNING - Error al convertir servidor con id 16 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,265 - WARNING - Error al convertir servidor con id 17 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,266 - WARNING - Error al convertir servidor con id 18 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,267 - WARNING - Error al convertir servidor con id 21 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,268 - WARNING - Error al convertir servidor con id 22 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,270 - WARNING - Error al convertir servidor con id 23 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,271 - WARNING - Error al convertir servidor con id 32 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,272 - WARNING - Error al convertir servidor con id 33 a dict: 'hard' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,273 - WARNING - Error al convertir servidor con id 35 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,274 - WARNING - Error al convertir servidor con id 36 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,276 - WARNING - Error al convertir servidor con id 37 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,277 - WARNING - Error al convertir servidor con id 38 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,278 - WARNING - Error al convertir servidor con id 39 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,279 - WARNING - Error al convertir servidor con id 40 a dict: 'normal' is not among the defined enum values. Enum name: difficultyenum. Possible values: HARD, NORMAL, EASY, PEACEFUL
+2025-04-15 18:08:39,280 - DEBUG - Se escribió list.txt con 16 servidores
+2025-04-15 18:08:39,281 - INFO - 127.0.0.1 - - [15/Apr/2025 18:08:39] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:10:50,696 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 18:10:51,088 - INFO -  * Restarting with stat
+2025-04-15 18:10:51,879 - WARNING -  * Debugger is active!
+2025-04-15 18:10:51,884 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 18:11:00,047 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 18:11:00,367 - INFO -  * Restarting with stat
+2025-04-15 18:11:00,964 - WARNING -  * Debugger is active!
+2025-04-15 18:11:00,965 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 18:11:12,172 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 18:11:12,489 - INFO -  * Restarting with stat
+2025-04-15 18:11:13,343 - WARNING -  * Debugger is active!
+2025-04-15 18:11:13,344 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 18:11:15,408 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 18:11:15,666 - INFO -  * Restarting with stat
+2025-04-15 18:11:16,470 - WARNING -  * Debugger is active!
+2025-04-15 18:11:16,471 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 18:11:25,169 - INFO - 127.0.0.1 - - [15/Apr/2025 18:11:25] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:11:25,294 - INFO - 127.0.0.1 - - [15/Apr/2025 18:11:25] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:11:25,310 - INFO - 127.0.0.1 - - [15/Apr/2025 18:11:25] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:11:25,321 - INFO - 127.0.0.1 - - [15/Apr/2025 18:11:25] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:11:25,606 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:11:25,641 - INFO - 127.0.0.1 - - [15/Apr/2025 18:11:25] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:11:25,643 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:11:25,644 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:11:25,644 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:11:25,656 - DEBUG - Se escribió list.txt con 16 servidores
+2025-04-15 18:11:25,657 - INFO - 127.0.0.1 - - [15/Apr/2025 18:11:25] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:11:25,675 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:11:25,685 - INFO - 127.0.0.1 - - [15/Apr/2025 18:11:25] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:11:25,686 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:11:25,687 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:11:25,687 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:11:25,692 - DEBUG - Se escribió list.txt con 16 servidores
+2025-04-15 18:11:25,693 - INFO - 127.0.0.1 - - [15/Apr/2025 18:11:25] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:12:46,165 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-15 18:12:46,543 - INFO -  * Restarting with stat
+2025-04-15 18:12:47,250 - WARNING -  * Debugger is active!
+2025-04-15 18:12:47,251 - INFO -  * Debugger PIN: 128-138-280
+2025-04-15 18:12:53,561 - INFO - 127.0.0.1 - - [15/Apr/2025 18:12:53] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:12:53,578 - INFO - 127.0.0.1 - - [15/Apr/2025 18:12:53] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:12:53,594 - INFO - 127.0.0.1 - - [15/Apr/2025 18:12:53] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:12:53,607 - INFO - 127.0.0.1 - - [15/Apr/2025 18:12:53] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:12:53,822 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:12:53,837 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-15 18:12:53,839 - INFO - 127.0.0.1 - - [15/Apr/2025 18:12:53] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:12:53,840 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:12:53,844 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:12:53,844 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:12:53,856 - DEBUG - Se escribió list.txt con 16 servidores
+2025-04-15 18:12:53,861 - INFO - 127.0.0.1 - - [15/Apr/2025 18:12:53] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-15 18:12:53,868 - INFO - 127.0.0.1 - - [15/Apr/2025 18:12:53] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-15 18:12:53,868 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-15 18:12:53,869 - DEBUG - Respuesta del /api/auth/me: 200 - {
+  "created_at": "2025-04-04T10:08:59.440470",
+  "email": "raul@gmail.com",
+  "id": 21,
+  "servers_created": 0,
+  "username": "raul"
+}
+
+2025-04-15 18:12:53,869 - DEBUG - Información del usuario obtenida: {'created_at': '2025-04-04T10:08:59.440470', 'email': 'raul@gmail.com', 'id': 21, 'servers_created': 0, 'username': 'raul'}
+2025-04-15 18:12:53,874 - DEBUG - Se escribió list.txt con 16 servidores
+2025-04-15 18:12:53,875 - INFO - 127.0.0.1 - - [15/Apr/2025 18:12:53] "GET /api/servers/show_servers HTTP/1.1" 200 -

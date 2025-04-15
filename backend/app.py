@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager  # Importa JWTManager
 from api.auth.models import db
 from api.auth.routes import auth_bp
 from api.skins.routes import skins_bp
@@ -11,8 +12,17 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
     
+    # Configuración JWT
+    app.config['JWT_SECRET_KEY'] = 'Smai'  # Asegúrate de poner una clave secreta fuerte
+    app.config['JWT_HEADER_NAME'] = 'Authorization'  # Nombre del encabezado
+    app.config['JWT_HEADER_TYPE'] = 'Bearer'  # Tipo del encabezado (generalmente 'Bearer')
+    app.config['PROPAGATE_EXCEPTIONS'] = True
+
+    # Inicializar JWTManager
+    jwt = JWTManager(app)
+
     # Configuración de CORS más estricta
-    CORS(app, resources={
+    CORS(app, resources={ 
         r"/api/*": {
             "origins": ["http://localhost:5173", "http://127.0.0.1:5173"],
             "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],

@@ -123,7 +123,8 @@ def login():
             'access_token',
             f'Bearer {jwt_token}',
             httponly=True,   # Mantener HttpOnly para seguridad
-            secure=Config.COOKIE_SECURE,
+            #secure=Config.COOKIE_SECURE,
+                secure=False,
             samesite=Config.COOKIE_SAMESITE,
             max_age=Config.ACCESS_TOKEN_EXPIRE_MINUTES * 60
         )
@@ -132,7 +133,8 @@ def login():
             'refresh_token',
             session_token,
             httponly=True,
-            secure=Config.COOKIE_SECURE,
+            #secure=Config.COOKIE_SECURE,
+                secure=False,
             samesite=Config.COOKIE_SAMESITE,
             max_age=Config.REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60
         )

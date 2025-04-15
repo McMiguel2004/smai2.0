@@ -67,8 +67,8 @@ class ServerProperties(db.Model):
 
     def to_dict(self):
         return {
-            'difficulty': self.difficulty.value if self.difficulty else None,
-            'mode': self.mode.value if self.mode else None,
+            'difficulty': self.difficulty if self.difficulty else None,
+            'mode': self.mode if self.mode else None,
             'max_players': self.max_players,
             'max_build_height': self.max_build_height,
             'view_distance': self.view_distance,
