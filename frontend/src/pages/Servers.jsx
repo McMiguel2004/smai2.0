@@ -367,7 +367,7 @@ const Servers = () => {
                       ip: {server.ip_address}
                     </Typography>
                     <Typography variant="body2">
-                      Estado: {server.status}
+                      puerto: {server.port}
                     </Typography>
                   </CardContent>
 

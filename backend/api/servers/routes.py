@@ -106,6 +106,7 @@ def show_servers():
             'software': s.software,
             'version': s.version,
             'ip_address': s.ip_address,
+            'port': s.port,  # <-- Añadido aquí
             'status': s.status
         } for s in servers]
 

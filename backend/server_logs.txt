@@ -528,3 +528,47 @@ LookupError: 'normal' is not among the defined enum values. Enum name: difficult
 2025-04-18 15:05:51,887 - INFO - 127.0.0.1 - - [18/Apr/2025 15:05:51] "GET /api/auth/me HTTP/1.1" 200 -
 2025-04-18 15:05:51,888 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
 2025-04-18 15:05:51,900 - INFO - 127.0.0.1 - - [18/Apr/2025 15:05:51] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:07:47,997 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-18 15:07:48,344 - INFO -  * Restarting with stat
+2025-04-18 15:07:49,597 - WARNING -  * Debugger is active!
+2025-04-18 15:07:49,598 - INFO -  * Debugger PIN: 138-648-300
+2025-04-18 15:08:39,576 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'Miguel2', 'software': 'Java', 'version': '1.12.2', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-18 15:08:39,586 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:08:39,618 - INFO - 127.0.0.1 - - [18/Apr/2025 15:08:39] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:08:39,619 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:08:39,640 - INFO - 127.0.0.1 - - [18/Apr/2025 15:08:39] "[35m[1mPOST /api/servers/Create_Server HTTP/1.1[0m" 201 -
+2025-04-18 15:08:40,872 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:08:40,912 - INFO - 127.0.0.1 - - [18/Apr/2025 15:08:40] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:08:40,916 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:08:40,925 - INFO - 127.0.0.1 - - [18/Apr/2025 15:08:40] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:08:43,390 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:08:43,396 - INFO - 127.0.0.1 - - [18/Apr/2025 15:08:43] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:08:43,396 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:08:44,362 - INFO - Servidor 48 iniciado por usuario 21
+2025-04-18 15:08:44,376 - INFO - 127.0.0.1 - - [18/Apr/2025 15:08:44] "POST /api/servers/Start_Server/48 HTTP/1.1" 200 -
+2025-04-18 15:08:46,368 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:08:46,411 - INFO - 127.0.0.1 - - [18/Apr/2025 15:08:46] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:08:46,412 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:08:46,418 - INFO - 127.0.0.1 - - [18/Apr/2025 15:08:46] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:09:56,157 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-18 15:09:56,404 - INFO -  * Restarting with stat
+2025-04-18 15:09:57,329 - WARNING -  * Debugger is active!
+2025-04-18 15:09:57,329 - INFO -  * Debugger PIN: 138-648-300
+2025-04-18 15:10:06,609 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-18 15:10:06,897 - INFO -  * Restarting with stat
+2025-04-18 15:10:07,657 - WARNING -  * Debugger is active!
+2025-04-18 15:10:07,658 - INFO -  * Debugger PIN: 138-648-300
+2025-04-18 15:10:31,535 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:31] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:10:31,537 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:31] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:10:38,778 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:38] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:10:38,883 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:38] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:10:38,911 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:38] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:10:38,926 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:38] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:10:39,029 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:10:39,038 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:39] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:10:39,038 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:10:39,074 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:10:39,080 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:39] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:10:39,125 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:39] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:10:39,145 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:10:39,157 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:39] "GET /api/servers/show_servers HTTP/1.1" 200 -
