@@ -45,9 +45,11 @@ def create_app():
     db.init_app(app)
     
     # Registrar blueprints
+    # auth y skins mantienen su prefijo
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
     app.register_blueprint(skins_bp, url_prefix='/api/skins')
-    app.register_blueprint(servers_bp, url_prefix='/api/servers')
+    # servers_bp ya define su propio url_prefix en routes
+    app.register_blueprint(servers_bp)
 
     # Crear tablas si no existen
     with app.app_context():

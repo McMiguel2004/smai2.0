@@ -2,15 +2,31 @@ import logging
 from flask import Blueprint, request, jsonify, current_app
 import requests
 import os
-from ..auth.models import db, User   # Asegúrate de que la ruta de importación es correcta.
+from ..auth.models import db, User
 from .models import Server, ServerProperties, DifficultyEnum, ModeEnum
+import subprocess
+import socket
+from datetime import datetime
 
-# Configuración de logging para escribir en server_logs.txt
+servers_bp = Blueprint('servers', __name__, url_prefix='/api/servers')
+AUTH_ME_URL = "api/auth/me"
+
+# Configuración de logging
 logging.basicConfig(
-    filename='server_logs.txt', 
+    filename='server_logs.txt',
     level=logging.DEBUG,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
+
+def get_authenticated_user_id():
+    """Obtiene el ID del usuario autenticado a través de una cookie."""
+    try:
+        response = requests.get(f"{request.host_url}{AUTH_ME_URL}", cookies=request.cookies)
+        if response.status_code == 200:
+            return response.json().get('id')
+    except Exception as e:
+        current_app.logger.exception("Error al autenticar usuario")
+    return None
 
 # Definir el blueprint para los servidores.
 servers_bp = Blueprint('servers', __name__, url_prefix='/api/servers')
@@ -19,8 +35,7 @@ servers_bp = Blueprint('servers', __name__, url_prefix='/api/servers')
 def create_server():
     """
     Crea un nuevo servidor y sus propiedades.
-    Primero se obtiene la información del usuario autenticado haciendo una petición interna a /api/auth/me,
-    y luego se crea el registro en la base de datos usando la id obtenida.
+    Solo permite hasta 4 servidores por usuario.
     """
     try:
         data = request.get_json()
@@ -28,51 +43,32 @@ def create_server():
         
         # Validar campos requeridos
         required_fields = ['nombreServidor', 'software', 'version']
-        missing_fields = [field for field in required_fields if field not in data]
-        if missing_fields:
-            error_message = f"Falta(n) campo(s): {', '.join(missing_fields)}"
-            current_app.logger.error(error_message)
-            return jsonify({'success': False, 'message': error_message}), 400
+        missing = [f for f in required_fields if f not in data]
+        if missing:
+            return jsonify({'success': False, 'message': f"Falta(n) campo(s): {', '.join(missing)}"}), 400
 
-        # Usar las cookies de la petición actual para la solicitud interna a /api/auth/me
-        cookies = request.cookies
-        me_url = 'http://localhost:5000/api/auth/me'
-        me_response = requests.get(me_url, cookies=cookies)
-        current_app.logger.debug("Respuesta del /api/auth/me: %s - %s", me_response.status_code, me_response.text)
+        # Obtener id de usuario autenticado
+        me = requests.get(f"{request.host_url}api/auth/me", cookies=request.cookies)
+        if me.status_code != 200:
+            return jsonify({'success': False, 'message': "No se pudo obtener la información del usuario"}), 400
+        uid = me.json().get('id')
 
-        if me_response.status_code != 200:
-            error_message = "No se pudo obtener la información del usuario"
-            current_app.logger.error(error_message)
-            return jsonify({'success': False, 'message': error_message}), 400
+        # Verificar límite
+        count = Server.query.filter_by(user_id=uid).count()
+        if count >= 4:
+            return jsonify({'success': False, 'message': 'Se ha excedido el máximo de servidores posibles'}), 403
 
-        user_data = me_response.json()
-        user_id = user_data.get('id')
-        current_app.logger.debug("Información del usuario obtenida: %s", user_data)
+        # Crear servidor y propiedades
+        srv = Server(name=data['nombreServidor'], software=data['software'], version=data['version'], user_id=uid)
+        db.session.add(srv)
+        db.session.flush()
 
-        if not user_id:
-            error_message = "Información de usuario incompleta: sin id"
-            current_app.logger.error(error_message)
-            return jsonify({'success': False, 'message': error_message}), 400
-
-        # Crear la instancia de Server
-        new_server = Server(
-            name=data.get('nombreServidor'),
-            software=data.get('software'),
-            version=data.get('version'),
-            user_id=user_id
-        )
-        db.session.add(new_server)
-        db.session.flush()  # Asigna el ID del servidor
-
-        # Convertir los valores de difficulty y mode a minúsculas para asegurar coincidencia con el enum
-        difficulty_value = data.get('difficulty', 'normal').lower()
-        mode_value = data.get('mode', 'survival').lower()
-
-        # Crear las propiedades del servidor
-        properties = ServerProperties(
-            server_id=new_server.id,
-            difficulty=DifficultyEnum(difficulty_value).value,
-            mode=ModeEnum(mode_value).value,
+        diff = DifficultyEnum(data.get('difficulty', 'normal').lower()).value
+        mode = ModeEnum(data.get('mode', 'survival').lower()).value
+        props = ServerProperties(
+            server_id=srv.id,
+            difficulty=diff,
+            mode=mode,
             max_players=data.get('maxPlayers', 20),
             max_build_height=data.get('maxBuildHeight', 256),
             view_distance=data.get('viewDistance', 10),
@@ -84,114 +80,167 @@ def create_server():
             enable_command_block=data.get('enableCommandBlock', False),
             allow_flight=data.get('allowFlight', False)
         )
-        db.session.add(properties)
+        db.session.add(props)
         db.session.commit()
 
-        success_message = f"Servidor creado correctamente para el usuario con id {user_id}"
-        current_app.logger.info(success_message)
-
-        # Intentar formatear los datos del servidor
-        warnings = []
-        try:
-            server_data = new_server.to_dict()
-        except Exception as format_error:
-            warning_msg = f"Servidor creado pero error al formatear los datos: {format_error}"
-            current_app.logger.warning(warning_msg)
-            server_data = None
-            warnings.append(warning_msg)
-
-        return jsonify({
-            'success': True,
-            'message': success_message,
-            'server': server_data,
-            'warnings': warnings
-        }), 201
+        return jsonify({'success': True, 'message': 'Servidor creado correctamente'}), 201
 
     except Exception as e:
         db.session.rollback()
         current_app.logger.exception("Error al crear servidor")
-        return jsonify({
-            'success': False,
-            'message': f'Error al crear servidor: {str(e)}'
-        }), 500
+        return jsonify({'success': False, 'message': str(e)}), 500
 
-
-
-
-
-import os
-from flask import Blueprint, request, jsonify, current_app
-import requests
-from ..auth.models import db, User  # Asegúrate de que la ruta de importación es correcta.
-from .models import Server, ServerProperties
-
-# Definir el blueprint para los servidores.
-servers_bp = Blueprint('servers', __name__, url_prefix='/api/servers')
 
 @servers_bp.route('/show_servers', methods=['GET'])
 def show_servers():
-    """
-    Retorna todos los servidores creados por el usuario autenticado.
-    """
+    """Muestra todos los servidores del usuario autenticado."""
     try:
-        cookies = request.cookies
-        me_url = 'http://localhost:5000/api/auth/me'
-        me_response = requests.get(me_url, cookies=cookies)
-        current_app.logger.debug("Respuesta del /api/auth/me: %s - %s", me_response.status_code, me_response.text)
-
-        if me_response.status_code != 200:
-            error_message = "No se pudo obtener la información del usuario"
-            current_app.logger.error(error_message)
-            return jsonify({'success': False, 'message': error_message}), 400
-
-        user_data = me_response.json()
-        user_id = user_data.get('id')
-        current_app.logger.debug("Información del usuario obtenida: %s", user_data)
-
+        user_id = get_authenticated_user_id()
         if not user_id:
-            error_message = "Información de usuario incompleta: sin id"
-            current_app.logger.error(error_message)
-            return jsonify({'success': False, 'message': error_message}), 400
+            return jsonify({'success': False, 'message': "Usuario no autenticado"}), 401
 
-        user_servers = Server.query.filter_by(user_id=user_id).all()
+        servers = Server.query.filter_by(user_id=user_id).all()
+        result = [{
+            'id': s.id,
+            'name': s.name,
+            'software': s.software,
+            'version': s.version,
+            'ip_address': s.ip_address,
+            'status': s.status
+        } for s in servers]
 
-        servers_list = []
-        for server in user_servers:
-            try:
-                # Recolectar datos básicos: nombre, software, versión, ip_address y status
-                server_data = {
-                    'name': server.name,
-                    'software': server.software,
-                    'version': server.version,
-                    'ip_address': server.ip_address if server.ip_address else None,
-                    'status': server.status if server.status else None
-                }
-                servers_list.append(server_data)
-            except Exception as e:
-                current_app.logger.warning(f"Error al convertir servidor con id {server.id} a dict: {e}")
-                servers_list.append({'id': server.id, 'error': 'Error al formatear los datos del servidor'})
-
-        # 🔥 Guardar en list.txt: nombre, software, versión, ip_address y estado
+        # Intentar guardar en archivo
         try:
-            log_path = os.path.join(os.getcwd(), 'list.txt')
-            with open(log_path, 'w', encoding='utf-8') as f:
-                for server in servers_list:
-                    # Formatear los datos para escribirlos en el archivo
-                    f.write(f"Nombre: {server.get('name')}, Software: {server.get('software')}, "
-                            f"Versión: {server.get('version')}, IP: {server.get('ip_address') or 'N/A'}, "
-                            f"Estado: {server.get('status') or 'N/A'}\n")
-            current_app.logger.debug(f"Se escribió list.txt con {len(servers_list)} servidores")
-        except Exception as e:
-            current_app.logger.warning(f"No se pudo escribir el archivo list.txt: {e}")
+            with open('list.txt', 'w', encoding='utf-8') as f:
+                for srv in result:
+                    f.write(f"Nombre: {srv['name']}, Software: {srv['software']}, Versión: {srv['version']}, IP: {srv['ip_address'] or 'N/A'}, Estado: {srv['status'] or 'N/A'}\n")
+        except Exception:
+            current_app.logger.warning("No se pudo escribir list.txt")
 
-        return jsonify({
-            'success': True,
-            'servers': servers_list
-        }), 200
+        return jsonify({'success': True, 'servers': result}), 200
 
-    except Exception as e:
-        current_app.logger.exception("Error al obtener servidores del usuario")
-        return jsonify({
-            'success': False,
-            'message': f'Error al obtener servidores: {str(e)}'
-        }), 500
+    except Exception:
+        current_app.logger.exception("Error al obtener servidores")
+        return jsonify({'success': False, 'message': 'Error interno del servidor'}), 500
+
+
+
+
+@servers_bp.route('/delete_server/<int:server_id>', methods=['DELETE'])
+def delete_server(server_id):
+    """Elimina un servidor si pertenece al usuario autenticado."""
+    try:
+        user_id = get_authenticated_user_id()
+        if not user_id:
+            return jsonify({'success': False, 'message': "Usuario no autenticado"}), 401
+
+        server = Server.query.filter_by(id=server_id, user_id=user_id).first()
+        if not server:
+            return jsonify({'success': False, 'message': 'Servidor no encontrado o no autorizado'}), 404
+
+        db.session.delete(server)
+        db.session.commit()
+
+        current_app.logger.info(f"Servidor {server_id} eliminado por usuario {user_id}")
+        return jsonify({'success': True, 'message': 'Servidor eliminado correctamente'}), 200
+
+    except Exception:
+        db.session.rollback()
+        current_app.logger.exception("Error al eliminar servidor")
+        return jsonify({'success': False, 'message': 'Error interno del servidor'}), 500
+
+
+
+
+
+
+
+@servers_bp.route('/Start_Server/<int:server_id>', methods=['POST'])
+def start_server(server_id):
+    """
+    Inicia (o crea y luego inicia) un contenedor Docker para el servidor indicado.
+    """
+    user_id = get_authenticated_user_id()
+    if not user_id:
+        return jsonify({'success': False, 'message': "Usuario no autenticado"}), 401
+
+    # Busca el servidor y sus propiedades
+    server = Server.query.filter_by(id=server_id, user_id=user_id).first()
+    if not server:
+        return jsonify({'success': False, 'message': 'Servidor no encontrado o no autorizado'}), 404
+
+    props = server.properties
+    # Valores por defecto
+    puerto = 25565 + server_id
+    max_players      = props.max_players
+    difficulty       = props.difficulty.value
+    mode             = props.mode.value
+    max_build_height = props.max_build_height
+    view_distance    = props.view_distance
+    spawn_npcs       = props.spawn_npcs
+    allow_nether     = props.allow_nether
+    spawn_animals    = props.spawn_animals
+    spawn_monsters   = props.spawn_monsters
+    pvp              = props.pvp
+    enable_cmd_blk   = props.enable_command_block
+    allow_flight     = props.allow_flight
+
+    # Si no hay container_id, creamos uno nuevo
+    if not server.container_id:
+        cmd = [
+            "sudo", "docker", "run", "-d", "-it",
+            "-p", f"{puerto}:25565",
+            "-e", "EULA=TRUE",
+            "-e", "ONLINE_MODE=FALSE",
+            "-e", "ICON=https://github.com/hammad2003/smai/blob/master/Img/MacacoSmai.png?raw=true",
+            f"-e VERSION={server.version}"
+        ]
+        # Variables solo si difieren del valor por defecto
+        if max_players != 20:       cmd += [f"-e MAX_PLAYERS={max_players}"]
+        if difficulty != 'easy':    cmd += [f"-e DIFFICULTY={difficulty}"]
+        if mode != 'survival':      cmd += [f"-e MODE={mode}"]
+        if max_build_height != 256: cmd += [f"-e MAX_BUILD_HEIGHT={max_build_height}"]
+        if view_distance != 10:     cmd += [f"-e VIEW_DISTANCE={view_distance}"]
+        if not spawn_npcs:          cmd += [f"-e SPAWN_NPCS={str(spawn_npcs).lower()}"]
+        if not allow_nether:        cmd += [f"-e ALLOW_NETHER={str(allow_nether).lower()}"]
+        if not spawn_animals:       cmd += [f"-e SPAWN_ANIMALS={str(spawn_animals).lower()}"]
+        if not spawn_monsters:      cmd += [f"-e SPAWN_MONSTERS={str(spawn_monsters).lower()}"]
+        if not pvp:                 cmd += [f"-e PVP={str(pvp).lower()}"]
+        if enable_cmd_blk:          cmd += [f"-e ENABLE_COMMAND_BLOCK={str(enable_cmd_blk).lower()}"]
+        if allow_flight:            cmd += [f"-e ALLOW_FLIGHT={str(allow_flight).lower()}"]
+
+        # Tipo de software
+        tipo = server.software.upper()
+        if tipo in ('FORGE', 'FABRIC', 'SPIGOT', 'BUKKIT'):
+            cmd += [f"-e TYPE={tipo}"]
+
+        cmd.append("itzg/minecraft-server")
+
+        try:
+            container_id = subprocess.check_output(cmd, text=True).strip()
+        except subprocess.CalledProcessError as e:
+            current_app.logger.error("Error al crear contenedor: %s", e)
+            return jsonify({'success': False, 'message': 'Error al iniciar el servidor Docker'}), 500
+
+        # IP del host
+        ip_address = socket.gethostbyname(socket.gethostname())
+
+        # Actualizar modelo
+        server.container_id = container_id
+        server.ip_address   = ip_address
+        server.port         = puerto
+        server.status       = 'Activo'
+        server.created_at   = datetime.utcnow()
+    else:
+        # Si ya existe, lo arrancamos
+        try:
+            subprocess.check_output(["sudo", "docker", "start", server.container_id], text=True)
+        except subprocess.CalledProcessError as e:
+            current_app.logger.error("Error al arrancar contenedor %s: %s", server.container_id, e)
+            return jsonify({'success': False, 'message': 'Error al iniciar el contenedor Docker'}), 500
+
+        server.status = 'Activo'
+
+    db.session.commit()
+    current_app.logger.info("Servidor %s iniciado por usuario %s", server_id, user_id)
+    return jsonify({'success': True, 'message': 'Servidor iniciado correctamente'}), 200

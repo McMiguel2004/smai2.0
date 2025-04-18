@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from enum import Enum
+from sqlalchemy import Enum as SAEnum
 from ..auth.models import db
 
 class DifficultyEnum(Enum):
@@ -29,7 +30,10 @@ class Server(db.Model):
     port = db.Column(db.Integer)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    properties = db.relationship('ServerProperties', backref='server', uselist=False, cascade='all, delete-orphan')
+    properties = db.relationship(
+        'ServerProperties', backref='server', uselist=False,
+        cascade='all, delete-orphan'
+    )
     user = db.relationship('User', backref='servers')
 
     def to_dict(self):
@@ -52,8 +56,23 @@ class ServerProperties(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     server_id = db.Column(db.Integer, db.ForeignKey('servers.id'), nullable=False)
-    difficulty = db.Column(db.Enum(DifficultyEnum), default=DifficultyEnum.EASY)
-    mode = db.Column(db.Enum(ModeEnum), default=ModeEnum.SURVIVAL)
+
+    difficulty = db.Column(
+        SAEnum(
+            DifficultyEnum,
+            name='difficultyenum',
+            values_callable=lambda enum: [e.value for e in enum]
+        ),
+        default=DifficultyEnum.EASY
+    )
+    mode = db.Column(
+        SAEnum(
+            ModeEnum,
+            name='modeenum',
+            values_callable=lambda enum: [e.value for e in enum]
+        ),
+        default=ModeEnum.SURVIVAL
+    )
     max_players = db.Column(db.Integer, default=20)
     max_build_height = db.Column(db.Integer, default=256)
     view_distance = db.Column(db.Integer, default=10)
@@ -67,8 +86,8 @@ class ServerProperties(db.Model):
 
     def to_dict(self):
         return {
-            'difficulty': self.difficulty if self.difficulty else None,
-            'mode': self.mode if self.mode else None,
+            'difficulty': self.difficulty.value if self.difficulty else None,
+            'mode': self.mode.value if self.mode else None,
             'max_players': self.max_players,
             'max_build_height': self.max_build_height,
             'view_distance': self.view_distance,
