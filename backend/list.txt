@@ -1,2 +1,0 @@
-Nombre: Miguel, Software: Java, Versión: 1.12.2, IP: 127.0.1.1, Estado: Activo
-Nombre: Miguel2, Software: Java, Versión: 1.12.2, IP: 127.0.1.1, Estado: Activo

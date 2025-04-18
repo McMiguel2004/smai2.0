@@ -572,3 +572,177 @@ LookupError: 'normal' is not among the defined enum values. Enum name: difficult
 2025-04-18 15:10:39,125 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:39] "GET /api/auth/me HTTP/1.1" 200 -
 2025-04-18 15:10:39,145 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
 2025-04-18 15:10:39,157 - INFO - 127.0.0.1 - - [18/Apr/2025 15:10:39] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:26:32,821 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:32] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:26:32,834 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:32] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:26:32,848 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:32] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:26:32,858 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:32] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:26:33,046 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:26:33,081 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:33] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:26:33,082 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:26:33,087 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:33] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:26:33,104 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:26:33,134 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:33] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:26:33,136 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:26:33,145 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:33] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:26:36,595 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:26:36,600 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:36] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:26:36,607 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:26:39,133 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:26:39,140 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:39] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:26:39,140 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:26:41,133 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:26:41,154 - INFO - 127.0.0.1 - - [18/Apr/2025 15:26:41] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:26:41,155 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:27:49,428 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 15:27:49,428 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 15:27:49,429 - INFO -  * Restarting with stat
+2025-04-18 15:27:50,170 - WARNING -  * Debugger is active!
+2025-04-18 15:27:50,170 - INFO -  * Debugger PIN: 138-648-300
+2025-04-18 15:27:58,935 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 15:27:58,935 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 15:27:58,936 - INFO -  * Restarting with stat
+2025-04-18 15:27:59,547 - WARNING -  * Debugger is active!
+2025-04-18 15:27:59,548 - INFO -  * Debugger PIN: 138-648-300
+2025-04-18 15:28:06,323 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:06,348 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:06] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:06,349 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:11,647 - INFO - Servidor 47 iniciado por usuario 21
+2025-04-18 15:28:11,648 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:11] "POST /api/servers/Start_Server/47 HTTP/1.1" 200 -
+2025-04-18 15:28:15,637 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:15,663 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:15] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:15,664 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:15,676 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:15] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:28:18,374 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:18,395 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:18] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:18,396 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:18,447 - INFO - Servidor 47 iniciado por usuario 21
+2025-04-18 15:28:18,448 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:18] "POST /api/servers/Start_Server/47 HTTP/1.1" 200 -
+2025-04-18 15:28:20,073 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:20,130 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:20] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:20,131 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:20,140 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:20] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:28:33,045 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 15:28:33,048 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 15:28:33,050 - INFO -  * Restarting with stat
+2025-04-18 15:28:33,721 - WARNING -  * Debugger is active!
+2025-04-18 15:28:33,722 - INFO -  * Debugger PIN: 138-648-300
+2025-04-18 15:28:41,007 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:41,033 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:41] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:41,034 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:41,113 - INFO - Servidor 47 iniciado por usuario 21
+2025-04-18 15:28:41,116 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:41] "POST /api/servers/Start_Server/47 HTTP/1.1" 200 -
+2025-04-18 15:28:42,464 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:42,494 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:42] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:42,495 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:42,500 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:42] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:28:45,184 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:45,197 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:45] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:45,198 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:45,343 - INFO - Servidor 47 iniciado por usuario 21
+2025-04-18 15:28:45,344 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:45] "POST /api/servers/Start_Server/47 HTTP/1.1" 200 -
+2025-04-18 15:28:46,548 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:46,572 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:46] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:46,572 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:46,576 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:46] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:28:48,732 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:48,742 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:48] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:48,743 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:48,794 - INFO - Servidor 48 iniciado por usuario 21
+2025-04-18 15:28:48,796 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:48] "POST /api/servers/Start_Server/48 HTTP/1.1" 200 -
+2025-04-18 15:28:50,256 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:28:50,301 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:50] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:28:50,302 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:28:50,311 - INFO - 127.0.0.1 - - [18/Apr/2025 15:28:50] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:29:12,820 - INFO - 127.0.0.1 - - [18/Apr/2025 15:29:12] "OPTIONS /api/servers/delete_server/48 HTTP/1.1" 200 -
+2025-04-18 15:29:12,827 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:29:12,843 - INFO - 127.0.0.1 - - [18/Apr/2025 15:29:12] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:29:12,844 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:29:12,858 - INFO - Servidor 48 eliminado por usuario 21
+2025-04-18 15:29:12,859 - INFO - 127.0.0.1 - - [18/Apr/2025 15:29:12] "DELETE /api/servers/delete_server/48 HTTP/1.1" 200 -
+2025-04-18 15:29:14,063 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:29:14,098 - INFO - 127.0.0.1 - - [18/Apr/2025 15:29:14] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:29:14,100 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:29:14,104 - INFO - 127.0.0.1 - - [18/Apr/2025 15:29:14] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:31:18,153 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-18 15:31:18,479 - INFO -  * Restarting with stat
+2025-04-18 15:31:19,461 - WARNING -  * Debugger is active!
+2025-04-18 15:31:19,473 - INFO -  * Debugger PIN: 138-648-300
+2025-04-18 15:31:28,672 - INFO -  * Detected change in '/home/usuario/Documentos/smai2.0/backend/api/servers/routes.py', reloading
+2025-04-18 15:31:29,027 - INFO -  * Restarting with stat
+2025-04-18 15:31:29,960 - WARNING -  * Debugger is active!
+2025-04-18 15:31:29,960 - INFO -  * Debugger PIN: 138-648-300
+2025-04-18 15:31:37,043 - INFO - 127.0.0.1 - - [18/Apr/2025 15:31:37] "OPTIONS /api/servers/delete_server/47 HTTP/1.1" 200 -
+2025-04-18 15:31:37,057 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:31:37,147 - INFO - 127.0.0.1 - - [18/Apr/2025 15:31:37] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:31:37,148 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:31:38,026 - INFO - Servidor 47 y contenedor f8c4271075a5f025d023378f00ed55d08330197e1e75cd336931d11d38203aaf eliminados por usuario 21
+2025-04-18 15:31:38,027 - INFO - 127.0.0.1 - - [18/Apr/2025 15:31:38] "DELETE /api/servers/delete_server/47 HTTP/1.1" 200 -
+2025-04-18 15:31:40,672 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:31:40,683 - INFO - 127.0.0.1 - - [18/Apr/2025 15:31:40] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:31:40,683 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:31:40,693 - INFO - 127.0.0.1 - - [18/Apr/2025 15:31:40] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:33:02,163 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'asdada', 'software': 'Java', 'version': '1.20.6', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-18 15:33:02,165 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:33:02,171 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:02] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:33:02,172 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:33:02,192 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:02] "[35m[1mPOST /api/servers/Create_Server HTTP/1.1[0m" 201 -
+2025-04-18 15:33:03,548 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:33:03,554 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:03] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:33:03,554 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:33:03,558 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:03] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:33:06,504 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:33:06,510 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:06] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:33:06,511 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:33:07,345 - INFO - Servidor 49 iniciado por usuario 21
+2025-04-18 15:33:07,347 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:07] "POST /api/servers/Start_Server/49 HTTP/1.1" 200 -
+2025-04-18 15:33:08,899 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:33:08,956 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:08] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:33:08,958 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:33:08,969 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:08] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:33:40,498 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:40] "OPTIONS /api/servers/delete_server/49 HTTP/1.1" 200 -
+2025-04-18 15:33:40,509 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:33:40,585 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:40] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:33:40,586 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:33:41,589 - INFO - Servidor 49 y contenedor a667ea2d07413188ae7f7d4f24e28868d8d57e314485ee42195d659b0fe114e6 eliminados por usuario 21
+2025-04-18 15:33:41,590 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:41] "DELETE /api/servers/delete_server/49 HTTP/1.1" 200 -
+2025-04-18 15:33:42,870 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:33:42,890 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:42] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:33:42,891 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:33:42,898 - INFO - 127.0.0.1 - - [18/Apr/2025 15:33:42] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:34:04,564 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-18 15:34:04,565 - INFO - [33mPress CTRL+C to quit[0m
+2025-04-18 15:34:04,566 - INFO -  * Restarting with stat
+2025-04-18 15:34:05,452 - WARNING -  * Debugger is active!
+2025-04-18 15:34:05,452 - INFO -  * Debugger PIN: 138-648-300
+2025-04-18 15:34:23,078 - DEBUG - Datos recibidos en create_server: {'nombreServidor': 'asdada', 'software': 'Java', 'version': '1.18.2', 'maxPlayers': 20, 'difficulty': 'NORMAL', 'mode': 'SURVIVAL', 'maxBuildHeight': 256, 'viewDistance': 10, 'spawnNpcs': True, 'allowNether': True, 'spawnAnimals': True, 'spawnMonsters': True, 'pvp': True, 'enableCommandBlock': False, 'allowFlight': False}
+2025-04-18 15:34:23,083 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:34:23,146 - INFO - 127.0.0.1 - - [18/Apr/2025 15:34:23] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:34:23,146 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:34:23,194 - INFO - 127.0.0.1 - - [18/Apr/2025 15:34:23] "[35m[1mPOST /api/servers/Create_Server HTTP/1.1[0m" 201 -
+2025-04-18 15:34:25,214 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:34:25,247 - INFO - 127.0.0.1 - - [18/Apr/2025 15:34:25] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:34:25,248 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:34:25,262 - INFO - 127.0.0.1 - - [18/Apr/2025 15:34:25] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:34:32,025 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:34:32,040 - INFO - 127.0.0.1 - - [18/Apr/2025 15:34:32] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:34:32,041 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:34:32,743 - INFO - Servidor 50 iniciado por usuario 21
+2025-04-18 15:34:32,744 - INFO - 127.0.0.1 - - [18/Apr/2025 15:34:32] "POST /api/servers/Start_Server/50 HTTP/1.1" 200 -
+2025-04-18 15:34:36,011 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:34:36,080 - INFO - 127.0.0.1 - - [18/Apr/2025 15:34:36] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:34:36,081 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:34:36,110 - INFO - 127.0.0.1 - - [18/Apr/2025 15:34:36] "GET /api/servers/show_servers HTTP/1.1" 200 -
+2025-04-18 15:35:11,282 - INFO - 127.0.0.1 - - [18/Apr/2025 15:35:11] "OPTIONS /api/servers/delete_server/50 HTTP/1.1" 200 -
+2025-04-18 15:35:11,294 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:35:11,364 - INFO - 127.0.0.1 - - [18/Apr/2025 15:35:11] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:35:11,365 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:35:12,096 - INFO - Servidor 50 y contenedor 796a60da71c1f798c87a4317fc905a4a50136fd17ee7a98baeafe360c9d1f7c2 eliminados por usuario 21
+2025-04-18 15:35:12,097 - INFO - 127.0.0.1 - - [18/Apr/2025 15:35:12] "DELETE /api/servers/delete_server/50 HTTP/1.1" 200 -
+2025-04-18 15:35:13,988 - DEBUG - Starting new HTTP connection (1): localhost:5000
+2025-04-18 15:35:13,997 - INFO - 127.0.0.1 - - [18/Apr/2025 15:35:13] "GET /api/auth/me HTTP/1.1" 200 -
+2025-04-18 15:35:13,998 - DEBUG - http://localhost:5000 "GET /api/auth/me HTTP/1.1" 200 136
+2025-04-18 15:35:14,002 - INFO - 127.0.0.1 - - [18/Apr/2025 15:35:14] "GET /api/servers/show_servers HTTP/1.1" 200 -

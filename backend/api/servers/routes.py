@@ -126,10 +126,9 @@ def show_servers():
 
 
 
-
 @servers_bp.route('/delete_server/<int:server_id>', methods=['DELETE'])
 def delete_server(server_id):
-    """Elimina un servidor si pertenece al usuario autenticado."""
+    """Elimina un servidor si pertenece al usuario autenticado y su contenedor Docker."""
     try:
         user_id = get_authenticated_user_id()
         if not user_id:
@@ -139,17 +138,27 @@ def delete_server(server_id):
         if not server:
             return jsonify({'success': False, 'message': 'Servidor no encontrado o no autorizado'}), 404
 
+        # Guardar el ID del contenedor antes de borrar el servidor
+        container_id = server.container_id
+
+        # Eliminar de la base de datos (propiedades + servidor)
         db.session.delete(server)
         db.session.commit()
 
-        current_app.logger.info(f"Servidor {server_id} eliminado por usuario {user_id}")
+        # Detener y eliminar el contenedor Docker si existe
+        if container_id:
+            subprocess.run(["docker", "rm", "-f", container_id], check=False)
+
+        # Eliminar volúmenes no utilizados (esto es general, no solo del contenedor)
+        subprocess.run(["docker", "volume", "prune", "-f"], check=False)
+
+        current_app.logger.info(f"Servidor {server_id} y contenedor {container_id} eliminados por usuario {user_id}")
         return jsonify({'success': True, 'message': 'Servidor eliminado correctamente'}), 200
 
-    except Exception:
+    except Exception as e:
         db.session.rollback()
         current_app.logger.exception("Error al eliminar servidor")
         return jsonify({'success': False, 'message': 'Error interno del servidor'}), 500
-
 
 
 
