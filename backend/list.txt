@@ -1,0 +1,3 @@
+Nombre: Mods2, Software: Fabric, Versión: 1.18.2, IP: 127.0.1.1, Estado: Detenido
+Nombre: Mods2, Software: Forge, Versión: 1.18.2, IP: 127.0.1.1, Estado: Detenido
+Nombre: Mods2, Software: Java, Versión: 1.18.2, IP: 127.0.1.1, Estado: Detenido

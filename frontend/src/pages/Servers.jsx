@@ -15,6 +15,10 @@ import {
   Switch,
   FormControlLabel,
   CircularProgress,
+  Paper,
+  Modal,
+  
+
 } from '@mui/material';
 import { Add, Cancel, Settings } from '@mui/icons-material';
 
@@ -126,7 +130,158 @@ const Servers = () => {
       }
     };
   
+    const handleStopServer = async (id) => {
+      try {
+        const res = await fetch(
+          `http://localhost:5000/api/servers/stop_server/${id}`,
+          { method: 'POST', credentials: 'include' }
+        );
     
+        const text = await res.text();
+        console.log('RAW RESPONSE:', text);
+    
+        // Ahora intentamos parsear
+        let json;
+        try {
+          json = JSON.parse(text);
+        } catch (e) {
+          throw new Error('Respuesta inválida del servidor: ' + text);
+        }
+    
+        if (!res.ok) throw new Error(json.message || 'Error al detener servidor');
+        alert('Servidor detenido correctamente');
+        fetchServers();
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    };
+
+
+
+    const handleRestartServer = async (id) => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/servers/restart_server/${id}`, {
+          method: 'POST',
+          credentials: 'include'
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert("Servidor reiniciado");
+        } else {
+          alert("Error al reiniciar: " + data.message);
+        }
+      } catch (err) {
+        alert("Error al hacer la petición");
+      }
+    };
+
+
+
+
+
+
+
+
+
+
+
+    const [showLogModal, setShowLogModal] = useState(false);
+    const [currentServerId, setCurrentServerId] = useState(null);
+    const [logContent, setLogContent] = useState('');
+  
+
+  const openLogModal = (serverId) => {
+    setLogContent('');           // limpiar contenido previo
+    setCurrentServerId(serverId);
+    setShowLogModal(true);
+  };
+
+  const closeLogModal = () => {
+    setShowLogModal(false);
+    setCurrentServerId(null);
+    setLogContent('');
+  };
+
+  useEffect(() => {
+    let es;
+    if (showLogModal && currentServerId) {
+      console.log("🟢 Abriendo conexión SSE con ID:", currentServerId);
+      es = new EventSource(`http://localhost:5000/api/servers/server_terminal/${currentServerId}`);
+  
+      es.onmessage = (e) => {
+        console.log("📥 Mensaje recibido:", e.data);
+        setLogContent(prev => (prev ? prev + '\n' : '') + e.data);
+      };
+  
+      es.onerror = () => {
+        console.error("🔴 Error en conexión SSE");
+        es.close();
+      };
+    }
+  
+    return () => {
+      if (es) {
+        console.log("🟡 Cerrando conexión SSE");
+        es.close();
+      }
+    };
+  }, [showLogModal, currentServerId]);
+  
+
+
+
+
+  // Para el modal de subir archivo
+const [showUploadModal, setShowUploadModal] = useState(false)
+const [uploadServerId, setUploadServerId] = useState(null)
+const [selectedFile, setSelectedFile] = useState(null)
+
+// Abrir modal y preparar estado
+const openUploadModal = (serverId) => {
+  setUploadServerId(serverId)
+  setSelectedFile(null)
+  setShowUploadModal(true)
+}
+const closeUploadModal = () => {
+  setShowUploadModal(false)
+  setUploadServerId(null)
+  setSelectedFile(null)
+}
+
+// Cuando elijas fichero
+const handleFileChange = (e) => {
+  setSelectedFile(e.target.files[0])
+}
+
+// Ejecutar la subida
+const handleUpload = async () => {
+  if (!selectedFile) {
+    alert("Elige un archivo primero")
+    return
+  }
+  const form = new FormData()
+  form.append("archivo", selectedFile)
+  form.append("servidorId", uploadServerId)
+
+  try {
+    const res = await fetch("http://localhost:5000/api/servers/upfile", {
+      method: 'POST',
+      credentials: 'include',
+      body: form
+    })
+    const data = await res.json()
+    if (data.success) {
+      alert(data.message)
+      closeUploadModal()
+    } else {
+      throw new Error(data.message)
+    }
+  } catch (err) {
+    alert("Error al subir archivo: " + err.message)
+  }
+}
+
+
 
   return (
     <Container>
@@ -187,6 +342,7 @@ const Servers = () => {
                   '1.20.6',
                   '1.20.5',
                   '1.20.4',
+                  '1.20.1',
                   '1.18.2',
                   '1.12.2',
                   '1.8.9',
@@ -379,23 +535,46 @@ const Servers = () => {
 
                   {expandedServer === server.id && (
                     <Box display="flex" justifyContent="center" mt={2} gap={1}>
-                      <Button
+                      {server.status === 'Activo' ? (
+                        <>
+                          <Button variant="contained" color="warning" onClick={() => handleRestartServer(server.id)}>
+                            Reiniciar
+                          </Button>
+                          <Button
                         variant="contained"
-                        color="success"
-                        onClick={() => handleStartServer(server.id)}
+                        color="error"
+                        onClick={() => handleStopServer(server.id)}
                       >
-                        Iniciar
+                        Parar
                       </Button>
-                      <Button variant="contained" color="primary">
+                      <Button variant="outlined" onClick={() => openLogModal(server.id)}>
                         Terminal
                       </Button>
                       <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => handleDelete(server.id)}
+                        variant="outlined"
+                        onClick={() => openUploadModal(server.id)}
                       >
-                        Eliminar
+                        Subir mod
                       </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Button
+                            variant="contained"
+                            color="success"
+                            onClick={() => handleStartServer(server.id)}
+                          >
+                            Iniciar
+                          </Button>
+                          <Button
+                            variant="contained"
+                            color="error"
+                            onClick={() => handleDelete(server.id)}
+                          >
+                            Eliminar
+                          </Button>
+                        </>
+                      )}
                     </Box>
                   )}
                 </Card>
@@ -404,6 +583,43 @@ const Servers = () => {
           </Grid>
         )}
       </Box>
+
+          
+      <Modal open={showUploadModal} onClose={closeUploadModal}>
+          <Box sx={{
+            position: 'absolute',
+            top: '50%', left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 3,
+            borderRadius: 2
+          }}>
+            <Typography variant="h6" gutterBottom>
+              Subir archivo al servidor #{uploadServerId}
+            </Typography>
+            <input
+              type="file"
+              accept="*/*"
+              onChange={handleFileChange}
+              style={{ margin: '16px 0' }}
+            />
+            <Box display="flex" justifyContent="flex-end" gap={1}>
+              <Button onClick={closeUploadModal}>Cancelar</Button>
+              <Button
+                variant="contained"
+                onClick={handleUpload}
+                disabled={!selectedFile}
+              >
+                Subir
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
+
+
+
     </Container>
   );
 };

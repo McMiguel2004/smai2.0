@@ -7,6 +7,12 @@ from .models import Server, ServerProperties, DifficultyEnum, ModeEnum
 import subprocess
 import socket
 from datetime import datetime
+from flask import Response, stream_with_context
+
+import pathlib
+from werkzeug.utils import secure_filename
+
+
 
 servers_bp = Blueprint('servers', __name__, url_prefix='/api/servers')
 AUTH_ME_URL = "api/auth/me"
@@ -106,6 +112,8 @@ def show_servers():
             'software': s.software,
             'version': s.version,
             'ip_address': s.ip_address,
+            'container_id': s.container_id,  # <-- añadir container_id aquí
+
             'port': s.port,  # <-- Añadido aquí
             'status': s.status
         } for s in servers]
@@ -160,97 +168,265 @@ def delete_server(server_id):
         current_app.logger.exception("Error al eliminar servidor")
         return jsonify({'success': False, 'message': 'Error interno del servidor'}), 500
 
-
-
-
-
-
 @servers_bp.route('/Start_Server/<int:server_id>', methods=['POST'])
 def start_server(server_id):
     """
-    Inicia (o crea y luego inicia) un contenedor Docker para el servidor indicado.
+    Inicia (o crea y luego inicia) un contenedor Docker para el servidor indicado,
+    incluyendo el -e TYPE según el software elegido por el usuario.
     """
     user_id = get_authenticated_user_id()
     if not user_id:
         return jsonify({'success': False, 'message': "Usuario no autenticado"}), 401
 
-    # Busca el servidor y sus propiedades
     server = Server.query.filter_by(id=server_id, user_id=user_id).first()
     if not server:
         return jsonify({'success': False, 'message': 'Servidor no encontrado o no autorizado'}), 404
 
     props = server.properties
-    # Valores por defecto
     puerto = 25565 + server_id
-    max_players      = props.max_players
-    difficulty       = props.difficulty.value
-    mode             = props.mode.value
-    max_build_height = props.max_build_height
-    view_distance    = props.view_distance
-    spawn_npcs       = props.spawn_npcs
-    allow_nether     = props.allow_nether
-    spawn_animals    = props.spawn_animals
-    spawn_monsters   = props.spawn_monsters
-    pvp              = props.pvp
-    enable_cmd_blk   = props.enable_command_block
-    allow_flight     = props.allow_flight
 
-    # Si no hay container_id, creamos uno nuevo
-    if not server.container_id:
-        cmd = [
-            "sudo", "docker", "run", "-d", "-it",
-            "-p", f"{puerto}:25565",
-            "-e", "EULA=TRUE",
-            "-e", "ONLINE_MODE=FALSE",
-            "-e", "ICON=https://github.com/hammad2003/smai/blob/master/Img/MacacoSmai.png?raw=true",
-            f"-e VERSION={server.version}"
-        ]
-        # Variables solo si difieren del valor por defecto
-        if max_players != 20:       cmd += [f"-e MAX_PLAYERS={max_players}"]
-        if difficulty != 'easy':    cmd += [f"-e DIFFICULTY={difficulty}"]
-        if mode != 'survival':      cmd += [f"-e MODE={mode}"]
-        if max_build_height != 256: cmd += [f"-e MAX_BUILD_HEIGHT={max_build_height}"]
-        if view_distance != 10:     cmd += [f"-e VIEW_DISTANCE={view_distance}"]
-        if not spawn_npcs:          cmd += [f"-e SPAWN_NPCS={str(spawn_npcs).lower()}"]
-        if not allow_nether:        cmd += [f"-e ALLOW_NETHER={str(allow_nether).lower()}"]
-        if not spawn_animals:       cmd += [f"-e SPAWN_ANIMALS={str(spawn_animals).lower()}"]
-        if not spawn_monsters:      cmd += [f"-e SPAWN_MONSTERS={str(spawn_monsters).lower()}"]
-        if not pvp:                 cmd += [f"-e PVP={str(pvp).lower()}"]
-        if enable_cmd_blk:          cmd += [f"-e ENABLE_COMMAND_BLOCK={str(enable_cmd_blk).lower()}"]
-        if allow_flight:            cmd += [f"-e ALLOW_FLIGHT={str(allow_flight).lower()}"]
+    # Mapeo software -> TYPE
+    type_map = {
+        'java':   None,
+        'forge':  'FORGE',
+        'fabric': 'FABRIC',
+        'spigot': 'SPIGOT',
+        'bukkit': 'BUKKIT',
+    }
+    sof = server.software.strip().lower()
+    type_env = type_map.get(sof, None)
 
-        # Tipo de software
-        tipo = server.software.upper()
-        if tipo in ('FORGE', 'FABRIC', 'SPIGOT', 'BUKKIT'):
-            cmd += [f"-e TYPE={tipo}"]
+    # Construimos el cmd base
+    cmd = [
+        "sudo", "docker", "run", "-d", "-it",
+        "-p", f"{puerto}:25565",
+        "-e", "EULA=TRUE",
+        "-e", "ONLINE_MODE=FALSE",
+        "-e", "ICON=https://github.com/hammad2003/smai/blob/master/Img/MacacoSmai.png?raw=true",
+        "-e", f"VERSION={server.version}"
+    ]
 
-        cmd.append("itzg/minecraft-server")
+    # Props avanzadas solo si difieren de defecto
+    if props.max_players      != 20:       cmd += ["-e", f"MAX_PLAYERS={props.max_players}"]
+    if props.difficulty.value != 'easy':   cmd += ["-e", f"DIFFICULTY={props.difficulty.value}"]
+    if props.mode.value       != 'survival':cmd += ["-e", f"MODE={props.mode.value}"]
+    if props.max_build_height != 256:      cmd += ["-e", f"MAX_BUILD_HEIGHT={props.max_build_height}"]
+    if props.view_distance    != 10:       cmd += ["-e", f"VIEW_DISTANCE={props.view_distance}"]
+    if not props.spawn_npcs:               cmd += ["-e", f"SPAWN_NPCS={str(props.spawn_npcs).lower()}"]
+    if not props.allow_nether:             cmd += ["-e", f"ALLOW_NETHER={str(props.allow_nether).lower()}"]
+    if not props.spawn_animals:            cmd += ["-e", f"SPAWN_ANIMALS={str(props.spawn_animals).lower()}"]
+    if not props.spawn_monsters:           cmd += ["-e", f"SPAWN_MONSTERS={str(props.spawn_monsters).lower()}"]
+    if not props.pvp:                      cmd += ["-e", f"PVP={str(props.pvp).lower()}"]
+    if props.enable_command_block:         cmd += ["-e", f"ENABLE_COMMAND_BLOCK={str(props.enable_command_block).lower()}"]
+    if props.allow_flight:                 cmd += ["-e", f"ALLOW_FLIGHT={str(props.allow_flight).lower()}"]
 
-        try:
+    # Añadimos TYPE si aplica
+    if type_env:
+        cmd += ["-e", f"TYPE={type_env}"]
+
+    # Finalmente la imagen
+    cmd.append("itzg/minecraft-server")
+
+    try:
+        if not server.container_id:
+            # Crear contenedor
             container_id = subprocess.check_output(cmd, text=True).strip()
-        except subprocess.CalledProcessError as e:
-            current_app.logger.error("Error al crear contenedor: %s", e)
-            return jsonify({'success': False, 'message': 'Error al iniciar el servidor Docker'}), 500
-
-        # IP del host
-        ip_address = socket.gethostbyname(socket.gethostname())
-
-        # Actualizar modelo
-        server.container_id = container_id
-        server.ip_address   = ip_address
-        server.port         = puerto
-        server.status       = 'Activo'
-        server.created_at   = datetime.utcnow()
-    else:
-        # Si ya existe, lo arrancamos
-        try:
+            server.container_id = container_id
+            server.ip_address   = socket.gethostbyname(socket.gethostname())
+            server.port         = puerto
+            server.status       = 'Activo'
+            server.created_at   = datetime.utcnow()
+        else:
+            # Solo arrancar
             subprocess.check_output(["sudo", "docker", "start", server.container_id], text=True)
-        except subprocess.CalledProcessError as e:
-            current_app.logger.error("Error al arrancar contenedor %s: %s", server.container_id, e)
-            return jsonify({'success': False, 'message': 'Error al iniciar el contenedor Docker'}), 500
+            server.status = 'Activo'
 
-        server.status = 'Activo'
+        db.session.commit()
+        current_app.logger.info("Servidor %s iniciado por usuario %s", server_id, user_id)
+        return jsonify({'success': True, 'message': 'Servidor iniciado correctamente'}), 200
 
-    db.session.commit()
-    current_app.logger.info("Servidor %s iniciado por usuario %s", server_id, user_id)
-    return jsonify({'success': True, 'message': 'Servidor iniciado correctamente'}), 200
+    except subprocess.CalledProcessError as e:
+        current_app.logger.error("Error al iniciar contenedor Docker: %s", e)
+        db.session.rollback()
+        return jsonify({'success': False, 'message': 'Error al iniciar el servidor Docker'}), 500
+
+
+
+
+@servers_bp.route('/stop_server/<int:server_id>', methods=['POST'])
+def stop_server(server_id):
+    """
+    Detiene un contenedor Docker asociado al servidor y actualiza su estado.
+    """
+    try:
+        user_id = get_authenticated_user_id()
+        if not user_id:
+            return jsonify({'success': False, 'message': 'Usuario no autenticado'}), 401
+
+        server = Server.query.filter_by(id=server_id, user_id=user_id).first()
+        if not server or not server.container_id:
+            return jsonify({'success': False, 'message': 'Servidor no encontrado o sin contenedor'}), 404
+
+        # Usar sudo para detener el contenedor (sudoers permite sin contraseña)
+        subprocess.run(['sudo', 'docker', 'stop', server.container_id], check=False)
+
+        server.status = 'Detenido'
+        db.session.commit()
+
+        current_app.logger.info(f"Servidor {server_id} detenido por usuario {user_id}")
+        return jsonify({'success': True, 'message': 'Servidor detenido correctamente'}), 200
+    except Exception as e:
+        db.session.rollback()
+        current_app.logger.exception('Error al detener servidor')
+        return jsonify({'success': False, 'message': 'Error interno del servidor'}), 500
+
+
+
+
+@servers_bp.route('/restart_server/<int:server_id>', methods=['POST'])
+def restart_server(server_id):
+    """
+    Reinicia un contenedor Docker asociado al servidor.
+    """
+    try:
+        user_id = get_authenticated_user_id()
+        if not user_id:
+            return jsonify({'success': False, 'message': 'Usuario no autenticado'}), 401
+
+        server = Server.query.filter_by(id=server_id, user_id=user_id).first()
+        if not server:
+            return jsonify({'success': False, 'message': 'Servidor no encontrado'}), 404
+
+        if server.container_id:
+            subprocess.run(['sudo', 'docker', 'restart', server.container_id], check=False)
+
+        current_app.logger.info(f"Servidor {server_id} reiniciado por usuario {user_id}")
+        return jsonify({'success': True, 'message': 'Servidor reiniciado correctamente'}), 200
+
+    except Exception as e:
+        current_app.logger.exception("Error al reiniciar servidor")
+        return jsonify({'success': False, 'message': 'Error interno del servidor'}), 500
+
+
+
+
+
+
+@servers_bp.route('/server_terminal/<int:server_id>')
+def server_terminal(server_id):
+    """
+    Emite en tiempo real las nuevas líneas del archivo latest.log del servidor.
+    """
+
+    # 1. Verificar autenticación
+    user_id = get_authenticated_user_id()
+    if not user_id:
+        return jsonify({'success': False, 'message': 'Usuario no autenticado'}), 401
+
+    # 2. Verificar si el servidor existe y pertenece al usuario
+    server = Server.query.filter_by(id=server_id, user_id=user_id).first()
+    if not server:
+        return jsonify({'success': False, 'message': 'Servidor no encontrado'}), 404
+
+    # 3. Verificar que el servidor tenga contenedor Docker asignado
+    if not server.container_id:
+        return jsonify({'success': False, 'message': 'Contenedor no asociado al servidor'}), 400
+
+    # 4. Función generadora de eventos SSE
+    def generate():
+        cmd = [
+            'sudo', 'docker', 'exec', server.container_id,
+            'tail', '-n', '50', '-f', '/data/logs/latest.log'
+        ]
+        proc = None
+        try:
+            proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+            for line in iter(proc.stdout.readline, ''):
+                yield f"data: {line.rstrip()}\n\n"
+        except Exception as e:
+            current_app.logger.exception("Error leyendo logs con tail -f")
+            yield f"data: ERROR: {str(e)}\n\n"
+        finally:
+            if proc:
+                proc.terminate()
+
+    # 5. Respuesta en formato Server-Sent Events
+    return Response(stream_with_context(generate()), mimetype='text/event-stream')
+
+
+
+@servers_bp.route('/upfile', methods=['POST'])
+def upload_file():
+    """
+    Recibe un archivo y un servidorId, lo guarda temporalmente en disco,
+    lo copia al contenedor Docker correspondiente y lo borra del host.
+    """
+    try:
+        # 1. Autenticación
+        user_id = get_authenticated_user_id()
+        if not user_id:
+            return jsonify({'success': False, 'message': 'Usuario no autenticado'}), 401
+
+        # 2. Obtener archivo y servidorId
+        if 'archivo' not in request.files or 'servidorId' not in request.form:
+            return jsonify({'success': False, 'message': 'Datos incompletos'}), 400
+
+        archivo = request.files['archivo']
+        servidor_id = int(request.form['servidorId'])
+
+        # 3. Validar nombre
+        if archivo.filename == '':
+            return jsonify({'success': False, 'message': 'No se ha seleccionado ningún archivo'}), 400
+
+        # 4. Buscar servidor en BD
+        server = Server.query.filter_by(id=servidor_id, user_id=user_id).first()
+        if not server or not server.container_id:
+            return jsonify({'success': False, 'message': 'Servidor no encontrado o sin contenedor'}), 404
+
+        software = server.software.lower()
+
+        # 5. Directorios según software (locales dentro de backend/)
+        base = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        if software in ('forge', 'fabric'):
+            host_dir = os.path.join(base, 'mods')
+            cont_dir = '/data/mods'
+        elif software in ('spigot', 'bukkit'):
+            host_dir = os.path.join(base, 'plugins')
+            cont_dir = '/data/plugins'
+        else:
+            return jsonify({'success': False, 'message': 'Software no compatible'}), 400
+
+        # 6. Crear directorio si no existe
+        pathlib.Path(host_dir).mkdir(parents=True, exist_ok=True)
+
+        # 7. Guardar archivo en host
+        filename = secure_filename(archivo.filename)
+        host_path = os.path.join(host_dir, filename)
+        archivo.save(host_path)
+
+        # 8. Copiar al contenedor Docker
+        cmd = [
+            'sudo', 'docker', 'cp',
+            host_path,
+            f"{server.container_id}:{cont_dir}/{filename}"
+        ]
+        result = subprocess.run(cmd, capture_output=True, text=True)
+
+        # 9. Borrar fichero temporario
+        os.remove(host_path)
+
+        if result.returncode != 0:
+            current_app.logger.error("Docker cp error: %s", result.stderr.strip())
+            return jsonify({
+                'success': False,
+                'message': 'Error al enviar al contenedor: ' + result.stderr.strip()
+            }), 500
+
+        return jsonify({
+            'success': True,
+            'message': 'Archivo subido correctamente. Reinicia el servidor para aplicar cambios.'
+        }), 200
+
+    except Exception as e:
+        current_app.logger.exception("Error en /upfile")
+        return jsonify({'success': False, 'message': str(e)}), 500
