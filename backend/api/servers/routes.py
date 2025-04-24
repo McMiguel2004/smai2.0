@@ -133,7 +133,6 @@ def show_servers():
         return jsonify({'success': False, 'message': 'Error interno del servidor'}), 500
 
 
-
 @servers_bp.route('/delete_server/<int:server_id>', methods=['DELETE'])
 def delete_server(server_id):
     """Elimina un servidor si pertenece al usuario autenticado y su contenedor Docker."""
@@ -155,10 +154,10 @@ def delete_server(server_id):
 
         # Detener y eliminar el contenedor Docker si existe
         if container_id:
-            subprocess.run(["docker", "rm", "-f", container_id], check=False)
+            subprocess.run(["sudo", "docker", "rm", "-f", container_id], check=False)
 
         # Eliminar volúmenes no utilizados (esto es general, no solo del contenedor)
-        subprocess.run(["docker", "volume", "prune", "-f"], check=False)
+        subprocess.run(["sudo", "docker", "volume", "prune", "-f"], check=False)
 
         current_app.logger.info(f"Servidor {server_id} y contenedor {container_id} eliminados por usuario {user_id}")
         return jsonify({'success': True, 'message': 'Servidor eliminado correctamente'}), 200
@@ -167,6 +166,7 @@ def delete_server(server_id):
         db.session.rollback()
         current_app.logger.exception("Error al eliminar servidor")
         return jsonify({'success': False, 'message': 'Error interno del servidor'}), 500
+
 
 @servers_bp.route('/Start_Server/<int:server_id>', methods=['POST'])
 def start_server(server_id):
