@@ -1,1 +1,1 @@
-Nombre: Mc, Software: Forge, Versión: 1.18.2, IP: 127.0.1.1, Estado: Activo
+Nombre: Miguel, Software: Forge, Versión: 1.20.1, IP: 127.0.1.1, Estado: Detenido

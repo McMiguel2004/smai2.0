@@ -27,6 +27,7 @@ const Servers = () => {
   const [formData, setFormData] = useState({
     nombreServidor: '',
     software: 'Java',
+    modpack: '',           
     version: '1.20.6',
     maxPlayers: 20,
     difficulty: 'NORMAL',
@@ -314,21 +315,39 @@ const handleUpload = async () => {
               }
             />
 
+            
             <FormControl fullWidth margin="normal">
               <InputLabel>Software</InputLabel>
               <Select
                 value={formData.software}
                 onChange={e =>
-                  setFormData({ ...formData, software: e.target.value })
+                  setFormData({ ...formData, software: e.target.value, modpack: '' })
+                  // reiniciem `modpack` cada cop que canviï l'software
                 }
-              >
-                {['Java', 'Forge', 'Fabric', 'Spigot', 'Bukkit'].map(s => (
-                  <MenuItem key={s} value={s}>
-                    {s}
-                  </MenuItem>
+              >{['Java', 'Forge', 'Fabric', 'Spigot', 'Bukkit', 'Modpack'].map(s => (
+                <MenuItem key={s} value={s}>
+                  {['Spigot', 'Bukkit'].includes(s)
+                    ? <del>{s}</del>
+                    : s
+                  }
+                </MenuItem>
                 ))}
               </Select>
             </FormControl>
+
+
+            {formData.software === 'Modpack' && (
+              <TextField
+                fullWidth
+                margin="normal"
+                label="Elige el modpack"
+                value={formData.modpack}
+                onChange={e =>
+                  setFormData({ ...formData, modpack: e.target.value })
+                }
+              />
+            )}
+
 
             <FormControl fullWidth margin="normal">
               <InputLabel>Versión</InputLabel>
@@ -343,7 +362,7 @@ const handleUpload = async () => {
                   '1.20.5',
                   '1.20.4',
                   '1.20.1',
-                  '1.18.2',
+                  '1.18.2 ★',
                   '1.12.2',
                   '1.8.9',
                 ].map(v => (
